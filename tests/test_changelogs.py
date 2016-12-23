@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import pytest
 import changelogs
 
@@ -2236,17 +2237,6 @@ def test_qiita_spots():
     assert "Initial alpha releas" in log["0.1.0"]
     assert "* Creating an empty " in log["0.2.0"]
     assert "* Users can now chan" in log["0.2.0dev"]
-
-
-def test_qiniu():
-    log = changelogs.get("qiniu")
-    assert "增加" in log["7.0.0"]
-    assert "增加" in log["7.0.1"]
-    assert "修正" in log["7.0.10"]
-    assert "修正" in log["7.0.2"]
-    assert "增加" in log["7.0.3"]
-    assert "修正" in log["7.0.4"]
-    assert "变更" in log["7.0.5"]
 
 
 def test_qiniu_cli():
