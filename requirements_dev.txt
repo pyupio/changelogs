@@ -8,6 +8,6 @@ Sphinx==1.4.8
 cryptography==1.7
 PyYAML==3.11
 pytest==2.9.2
-pytest-cov
-betamax
-betamax-serializers
+pytest-cov==2.4.0
+betamax==0.8.0
+betamax-serializers==0.2.0
