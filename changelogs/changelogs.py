@@ -71,6 +71,13 @@ def _bootstrap_functions(name, vendor, functions):
             "get_releases": npm.get_releases,
             "get_urls": npm.get_urls,
         })
+    elif vendor == "gem":
+        from . import rubygems
+        fns.update({
+            "get_metadata": rubygems.get_metadata,
+            "get_releases": rubygems.get_releases,
+            "get_urls": rubygems.get_urls,
+        })
 
     # load custom functions for special packages lying in custom/{vendor}/{package}.py
     custom_fns = _load_custom_functions(vendor=vendor, name=name)
