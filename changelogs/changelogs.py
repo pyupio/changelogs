@@ -64,6 +64,13 @@ def _bootstrap_functions(name, vendor, functions):
             "get_releases": pypi.get_releases,
             "get_urls": pypi.get_urls,
         })
+    elif vendor == "npm":
+        from . import npm
+        fns.update({
+            "get_metadata": npm.get_metadata,
+            "get_releases": npm.get_releases,
+            "get_urls": npm.get_urls,
+        })
 
     # load custom functions for special packages lying in custom/{vendor}/{package}.py
     custom_fns = _load_custom_functions(vendor=vendor, name=name)
@@ -74,14 +81,15 @@ def _bootstrap_functions(name, vendor, functions):
     return fns
 
 
-def get(name, functions={}):
+def get(name, vendor="pypi", functions={}):
     """
     Tries to find a changelog for the given package.
     :param name: str, package name
+    :param vendor: str, vendor
     :param functions: dict, custom functions
     :return: dict, changelog
     """
-    fns = _bootstrap_functions(name=name, vendor="pypi", functions=functions)
+    fns = _bootstrap_functions(name=name, vendor=vendor, functions=functions)
     session = Session()
     # get meta data for the given package and use this metadata to
     # find urls pointing to a possible changelog
