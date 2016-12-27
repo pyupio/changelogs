@@ -18,6 +18,23 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_bundler():
+    log = changelogs.get("bundler", vendor="gem")
+    assert "method public again, fixing a regression in 1.13.4" in log["1.13.6"]
+    assert "Fix cross repository dependencies" in log["1.1.pre.6"]
+    assert "Rubinius platform :rbx" in log["1.0.14"]
+    assert "Significantly increase performance of resolver" in log["1.0.6"]
+    assert "added support for :path" in log["0.9.5"]
+
+
+def test_babel():
+    log = changelogs.get("babel", vendor="npm")
+    assert "babel-helper-builder-react-jsx" in log["6.21.1"]
+    assert "Exposes raw mappings when source map generation is enabled" in log["6.21.0"]
+    assert "Speeeeeeed" in log["5.3.0"]
+    assert "6to5 is now known as Babel" in log["4.0.0"]
+
+
 def test_boto():
     log = changelogs.get("boto")
     assert "Fix connection pooling bug: don't close before reading" in log["2.0"]
