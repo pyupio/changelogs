@@ -27,7 +27,7 @@ test_requirements = [
 
 setup(
     name='changelogs',
-    version='0.1.0',
+    version='0.2.0',
     description="A changelog finder and parser.",
     long_description=readme + '\n\n' + history,
     author="Jannis Gebauer",
