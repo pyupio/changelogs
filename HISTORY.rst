@@ -2,6 +2,12 @@
 History
 =======
 
+0.2.0 (2016-12-27)
+------------------
+
+* added support for rubygems
+* added support for npm
+
 0.1.0 (2016-12-19)
 ------------------
 
