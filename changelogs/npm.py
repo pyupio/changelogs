@@ -34,7 +34,7 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     :param name: str, package name
     :param data: dict, meta data
     :param find_changelogs_fn: function, find_changelogs
-    :return: set, URLs to changelogs
+    :return: tuple, (set(changelog URLs), set(repo URLs))
     """
     # if this package has valid meta data, build up a list of URL candidates we can possibly
     # search for changelogs on
@@ -47,5 +47,5 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
                 repo = item["repository"]["url"]
                 repo = repo.replace("git://", "https://").replace(".git", "")
                 candidates.add(repo)
-        return set(find_changelogs_fn(session=session, name=name, candidates=candidates))
-    return set()
+        return find_changelogs_fn(session=session, name=name, candidates=candidates)
+    return set(), set()

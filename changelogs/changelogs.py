@@ -104,7 +104,7 @@ def get(name, vendor="pypi", functions={}):
     # find urls pointing to a possible changelog
     data = fns["get_metadata"](session=session, name=name)
     releases = fns["get_releases"](name=name, data=data)
-    urls = fns["get_urls"](
+    urls, repos = fns["get_urls"](
         session=session,
         name=name,
         data=data,

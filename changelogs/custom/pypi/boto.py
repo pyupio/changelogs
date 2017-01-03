@@ -4,4 +4,4 @@ def get_urls(releases, **kwargs):
         if release == "2.0":
             release = "2.0.0"
         urls.append("https://raw.githubusercontent.com/boto/boto/develop/docs/source/releasenotes/v{v}.rst".format(v=release))
-    return urls
+    return urls, []

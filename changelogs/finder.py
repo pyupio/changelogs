@@ -152,7 +152,7 @@ def find_changelogs(session, name, candidates):
     :param session: requests Session instance
     :param name: str, project name
     :param candidates: list, URL candidates
-    :return: str, URL pointing to a changelog
+    :return: tuple, (set(changelog URLs), set(repo URLs))
     """
     # first, we are going to filter down the URL candidates to be all valid urls
     candidates = set(url for url in [validate_url(_url) for _url in candidates] if url)
@@ -164,6 +164,8 @@ def find_changelogs(session, name, candidates):
     if not repos:
         repos = set(find_repo_urls(session, name, candidates))
 
-    for repo in repos:
-        for url in find_changelog(session, repo):
-            yield url
+    def changelogs_urls():
+        for repo in repos:
+            for url in find_changelog(session, repo):
+                yield url
+    return set(changelogs_urls()), repos

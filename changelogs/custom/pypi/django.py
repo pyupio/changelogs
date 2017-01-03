@@ -9,4 +9,4 @@ def get_urls(releases, **kwargs):
     urls = []
     for release in releases:
         urls.append("https://raw.githubusercontent.com/django/django/master/docs/releases/{v}.txt".format(v=release))
-    return urls
+    return urls, []
