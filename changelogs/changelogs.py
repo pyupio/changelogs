@@ -50,10 +50,12 @@ def _bootstrap_functions(name, vendor, functions):
     """
     # load default functions
     from . import parser
+    from . import finder
     fns = {
         "get_content": get_content,
         "parse": parser.parse,
-        "get_head": parser.get_head
+        "get_head": parser.get_head,
+        "find_changelogs": finder.find_changelogs
     }
 
     # load vendor functions
@@ -102,7 +104,13 @@ def get(name, vendor="pypi", functions={}):
     # find urls pointing to a possible changelog
     data = fns["get_metadata"](session=session, name=name)
     releases = fns["get_releases"](name=name, data=data)
-    urls = fns["get_urls"](session=session, name=name, data=data, releases=releases)
+    urls = fns["get_urls"](
+        session=session,
+        name=name,
+        data=data,
+        releases=releases,
+        find_changelogs_fn=fns["find_changelogs"]
+    )
 
     # load the content from the given urls and parse the changelog
     content = fns["get_content"](session=session, urls=urls)

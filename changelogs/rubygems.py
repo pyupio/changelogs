@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
-from packaging.version import parse
-from .finder import find_changelogs
 
 
 def get_metadata(session, name):
@@ -28,12 +26,13 @@ def get_releases(data, **kwargs):
     return []
 
 
-def get_urls(session, name, data, **kwargs):
+def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     """
     Gets URLs to changelogs.
     :param session: requests Session instance
     :param name: str, package name
     :param data: dict, meta data
+    :param find_changelogs_fn: function, find_changelogs
     :return: set, URLs to changelogs
     """
     # if this package has valid meta data, build up a list of URL candidates we can possibly
@@ -46,4 +45,4 @@ def get_urls(session, name, data, **kwargs):
         )]
         if url
     ]
-    return set(find_changelogs(session=session, name=name, candidates=candidates))
+    return set(find_changelogs_fn(session=session, name=name, candidates=candidates))
