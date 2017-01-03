@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.1 (2016-01-03)
+------------------
+
+* the find_changelogs and get_urls functions now also return the repo URLs
+
 0.3.0 (2016-01-03)
 ------------------
 
