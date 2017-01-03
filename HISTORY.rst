@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.0 (2016-01-03)
+------------------
+
+* allow to swap in the find_changelogs function
+
 0.2.0 (2016-12-27)
 ------------------
 
