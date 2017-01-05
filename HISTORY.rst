@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.2 (2016-01-05)
+------------------
+
+* use modules for custom imports, for packaging
+
 0.3.1 (2016-01-03)
 ------------------
 
