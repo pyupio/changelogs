@@ -6,6 +6,10 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
+recursive-include changelogs/custom/pypi *
+recursive-include changelogs/custom/npm *
+recursive-include changelogs/custom/gem *
+
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
