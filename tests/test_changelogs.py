@@ -18,6 +18,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_fs_extra():
+    log = changelogs.get("fs-extra", vendor="npm")
+    assert "Added methods rmrf and rmrfSync" in log["0.0.3"]
+
+
 def test_spacesocket():
     log = changelogs.get("spacesocket", vendor="npm")
     assert log == {}
