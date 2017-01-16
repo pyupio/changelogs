@@ -44,7 +44,12 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
             if "homepage" in item and item["homepage"] is not None:
                 candidates.add(item["homepage"])
             if "repository" in item and item["repository"] is not None:
-                repo = item["repository"]["url"]
+                if "url" in item["repository"]:
+                    repo = item["repository"]["url"]
+                elif "path" in item["repository"]:
+                    repo = item["repository"]["path"]
+                else:
+                    continue
                 repo = repo.replace("git://", "https://").replace(".git", "")
                 candidates.add(repo)
         return find_changelogs_fn(session=session, name=name, candidates=candidates)

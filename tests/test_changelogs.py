@@ -18,6 +18,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_spacesocket():
+    log = changelogs.get("spacesocket", vendor="npm")
+    assert log == {}
+
+
 def test_json2():
     log = changelogs.get("json2", vendor="npm")
     assert '- re-release in "npm only"' in log["0.04"]
