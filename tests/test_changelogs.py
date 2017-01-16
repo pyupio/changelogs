@@ -18,6 +18,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_json2():
+    log = changelogs.get("json2", vendor="npm")
+    assert '- re-release in "npm only"' in log["0.04"]
+
+
 def test_bundler():
     log = changelogs.get("bundler", vendor="gem")
     assert "method public again, fixing a regression in 1.13.4" in log["1.13.6"]

@@ -41,9 +41,9 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     if "versions" in data:
         candidates = set()
         for version, item in data["versions"].items():
-            if "homepage" in item:
+            if "homepage" in item and item["homepage"] is not None:
                 candidates.add(item["homepage"])
-            if "repository" in item:
+            if "repository" in item and item["repository"] is not None:
                 repo = item["repository"]["url"]
                 repo = repo.replace("git://", "https://").replace(".git", "")
                 candidates.add(repo)
