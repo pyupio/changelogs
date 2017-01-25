@@ -90,8 +90,8 @@ CHANGELOG_FILENAME_CANDIDATES = frozenset([
 ])
 
 DOCS_CANDIDATES = frozenset([
-    "docs", "doc", "documentation",
-    "docs/", "doc/", "documentation/",
+    "docs", "doc", "documentation", "docs-src",
+    "docs/", "doc/", "documentation/", "docs-src/"
 ])
 
 
