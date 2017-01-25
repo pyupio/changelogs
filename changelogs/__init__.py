@@ -14,4 +14,4 @@ else:
 
 __author__ = """Jannis Gebauer"""
 __email__ = 'jay@pyup.io'
-__version__ = '0.4.0'
+__version__ = '0.5.0'
