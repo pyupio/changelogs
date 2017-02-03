@@ -2,6 +2,11 @@
 History
 =======
 
+0.6.0 (2016-02-03)
+------------------
+
+* tweaked the parser, included tests for openpyxl
+
 0.5.0 (2016-01-23)
 ------------------
 

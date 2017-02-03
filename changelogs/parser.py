@@ -56,6 +56,12 @@ def get_head(name, line, releases):
         if line.endswith(char):
             return False
 
+    # if the line contains "python", it is not a valid head. It's more likely that the mantainers
+    # are talking about a Python release in general.
+    # Note the leading ' ' to not exclude lines like python-foolibrary
+    if 'python ' in line.lower():
+        return False
+
     # Our goal is to find a somewhat parseable line. For this to work, we need to remove all
     # parts that are not needed so that:
     # release (12/12/2016) v2.0.3

@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_openpyxl():
+    log = changelogs.get("openpyxl", vendor="pypi")
+    assert '3.3' not in log
+    assert 'DeprecationWarning is incorrect' in log['2.4.2']
+    assert 'Tests run on Python 2.5, 2.6, 2.7, 3.2, 3.3' in log['1.7.0']
+
+
 def test_fs_extra():
     log = changelogs.get("fs-extra", vendor="npm")
     assert "Added methods rmrf and rmrfSync" in log["0.0.3"]
