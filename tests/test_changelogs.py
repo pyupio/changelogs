@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_flake8():
+    log = changelogs.get('flake8', vendor='pypi')
+    print(sorted(log.keys()))
+    assert 'Fix the McCabe metric on some loops' in log['0.6']
+    assert '**Bug** Fix packaging error during release process.' in log['2.6.2']
+
+
 def test_openpyxl():
     log = changelogs.get("openpyxl", vendor="pypi")
     assert '3.3' not in log
