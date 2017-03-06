@@ -18,9 +18,17 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_djangorestframework():
+    log = changelogs.get("djangorestframework")
+    assert 'Add max_length and min_length arguments' in log['3.5.4']
+    assert 'Fix docstring of Field.get_default' in log['3.4.5']
+    assert 'Repackage 2.4.7 without pyc files.' in log['2.4.8']
+    assert 'Bugfix: Fix None values for for' in log['2.2.3']
+    assert 'Initial release' in log['0.1.0']
+
+
 def test_django_fernet_fields():
     log = changelogs.get('django-fernet-fields')
-    print(log)
     assert 'Support Django 1.10.' in log['0.5']
     assert 'Extract HashField for advanced lookup needs.' in log['0.2']
     assert 'Initial working version.' in log['0.1']
