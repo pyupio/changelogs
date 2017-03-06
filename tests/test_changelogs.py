@@ -18,6 +18,19 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_gunicorn():
+    log = changelogs.get('gunicorn')
+    assert 'Add support for logging configuration using a ini file' in log['0.12.0']
+    assert 'Added support for pre/post fork hooks' in log['0.5.0']
+    assert 'post_request hook now accepts the environ as argument.' in log['0.13.0']
+    assert 'fix util.closerange function used to prevent leaking' in log['0.13.4']
+    assert 'ix: django1.4 support' in log['0.14.3']
+    assert 'fix pidfile creation on Python 3' in log['0.17.3']
+    assert '- fix tornado worker (:issue:`1154`)' in log['19.4.1']
+    assert 'Simplify installation instructions in gunicorn.org' in log['19.5.0']
+    assert 'use SO_REUSEPORT if available' in log['19.7.0']
+
+
 def test_sqlalchemy():
     log = changelogs.get('sqlalchemy')
     assert 'some fixes to topological sort algorithm' in log['0.1.7']
