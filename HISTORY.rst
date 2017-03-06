@@ -2,6 +2,17 @@
 History
 =======
 
+0.7.0 (2016-03-06)
+------------------
+
+* added custom parsers
+  - cheroot
+  - pyparsing
+  - gunicorn
+  - sqlalchemy
+  - djangorestframework
+* tweaked the get_head function
+
 0.6.1 (2016-02-08)
 ------------------
 
