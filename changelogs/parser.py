@@ -78,11 +78,9 @@ def get_head(name, line, releases):
     for intro in COMMON_RELEASE_INTRODUCTION:
         if uncluttered.startswith(intro):
             uncluttered = uncluttered.replace(intro, "")
-
     # some projects use the project name as a prefix, remove it
     uncluttered_name = re.sub("[^0123456789. a-zA-Z]", "", name).strip().lower()
     uncluttered = uncluttered.replace(uncluttered_name, "").strip()
-
     # now that all the clutter is removed, the line should be relatively short. If this is a valid
     # head the only thing left should be the version and possibly some datestamp. We are going
     # to count the length and assume a length of 8 for the version part, 8 for the datestamp and
@@ -95,8 +93,7 @@ def get_head(name, line, releases):
     parts = uncluttered.split(" ")
     if len(parts) > 1:
         parts = parts[::len(parts)-1]
-        parts.sort(key=lambda s: s.count("."), reverse=True)
-
+        parts.sort(key=lambda s: "." in s, reverse=True)
     # loop over all our parts an find a parseable version
     for part in parts:
         # remove the "v" prefix as it is not parseable

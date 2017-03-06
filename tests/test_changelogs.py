@@ -18,9 +18,16 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_fernet_fields():
+    log = changelogs.get('django-fernet-fields')
+    print(log)
+    assert 'Support Django 1.10.' in log['0.5']
+    assert 'Extract HashField for advanced lookup needs.' in log['0.2']
+    assert 'Initial working version.' in log['0.1']
+
+
 def test_flake8():
     log = changelogs.get('flake8', vendor='pypi')
-    print(sorted(log.keys()))
     assert 'Fix the McCabe metric on some loops' in log['0.6']
     assert '**Bug** Fix packaging error during release process.' in log['2.6.2']
 
@@ -1031,9 +1038,9 @@ def test_browserstacker():
     log = changelogs.get("browserstacker")
     assert "* Added `make_screen" in log["0.2.1"]
     assert "* Changed commands n" in log["0.3.1"]
-    assert "* Added verbose outp" in log["11.02.2016"]
-    assert "* Initial release." in log["22.01.2016"]
-    assert "* Used single `reque" in log["25.01.2016"]
+    assert "* Added verbose outp" in log["0.3"]
+    assert "* Initial release." in log["0.1"]
+    assert "* Used single `reque" in log["0.2"]
 
 
 def test_brubeck():
