@@ -28,7 +28,7 @@ def _load_custom_functions(vendor, name):
         filename  # /dir/parser/pypi/django.py
     )
     if os.path.isfile(path):
-        module_name = "{parser}.{vendor}.{name}"
+        module_name = "parser.{vendor}.{name}".format(vendor=vendor, name=name)
         module = imp.load_source(module_name, path)
         functions = dict(
             (function, getattr(module, function, None)) for function in ALLOWED_CUSTOM_FUNCTIONS
@@ -120,6 +120,7 @@ def get(name, vendor="pypi", functions={}):
         releases=releases,
         get_head_fn=fns["get_head"]
     )
+    del fns
     return changelog
 
 
