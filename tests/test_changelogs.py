@@ -18,12 +18,18 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_statici18n():
+    log = changelogs.get("django-statici18n")
+    assert 'Pass language name instead of locale name' in log['1.3.0']
+    assert 'Fixing compiling the JS formats for non-default' in log['0.4.2']
+    assert 'Initial commit.' in log['0.1.0']
+
+
 def test_django_countries():
     log = changelogs.get('django-countries')
     assert 'Better default Django admin filter when' in log['4.1']
     assert 'Fix issue with translations' in log['2.1.1']
     assert 'This is the first entry to the change log.' in log['2.0']
-
 
 
 def test_djangorestframework():
