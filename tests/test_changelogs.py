@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_cheroot():
+    log = changelogs.get('cheroot')
+    assert 'PEP8 improvements.' in log['5.2.1']
+    assert 'Fix error in ``parse_request_uri`` created in 68a5769.' in log['5.0.1']
+
+
 def test_pyparsing():
     log = changelogs.get("pyparsing")
     assert 'Bumped minor version number to reflect compatibility' in log['2.2.0']
