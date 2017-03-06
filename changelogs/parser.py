@@ -91,6 +91,14 @@ def get_head(name, line, releases):
     # split the line in parts and sort these parts by "." count in reversed order. This turns a
     # line like "12 12 2016 v2.0.3 into ['v2.0.3', "12", "12", "2016"]
     parts = uncluttered.split(" ")
+
+    # if a line contains more than 6 parts, it's unlikely that this is a valid head
+    if len(parts) >= 8:
+        # nevertheless: if there's a '.' in one of the first three items, we might be able to
+        # find a valid head here.
+        if not ("." in parts[0] or "." in parts[1] or "." in parts[2]):
+            return False
+
     if len(parts) > 1:
         parts = parts[::len(parts)-1]
         parts.sort(key=lambda s: "." in s, reverse=True)

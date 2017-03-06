@@ -18,6 +18,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_countries():
+    log = changelogs.get('django-countries')
+    assert 'Better default Django admin filter when' in log['4.1']
+    assert 'Fix issue with translations' in log['2.1.1']
+    assert 'This is the first entry to the change log.' in log['2.0']
+
+
+
 def test_djangorestframework():
     log = changelogs.get("djangorestframework")
     assert 'Add max_length and min_length arguments' in log['3.5.4']
