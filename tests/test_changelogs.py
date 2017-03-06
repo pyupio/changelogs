@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pyparsing():
+    log = changelogs.get("pyparsing")
+    assert 'Bumped minor version number to reflect compatibility' in log['2.2.0']
+    assert 'NOTE: This is the last release of pyparsing' in log['1.5.7']
+    assert 'Added searchString() method to ParserElemen' in log['1.4.1']
+
+
 def test_gunicorn():
     log = changelogs.get('gunicorn')
     assert 'Add support for logging configuration using a ini file' in log['0.12.0']
