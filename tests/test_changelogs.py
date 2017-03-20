@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_py():
+    log = changelogs.get('py')
+    assert "avoid imports in calls to py.path.local()" in log['1.4.33']
+    assert "allowing + signs in py.path.svn urls" in log['0.9.1']
+
+
 def test_selenium():
     log = changelogs.get("selenium")
     assert "Add initial unit test suite" in log['3.3.1']
