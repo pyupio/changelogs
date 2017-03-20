@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_selenium():
+    log = changelogs.get("selenium")
+    assert "Add initial unit test suite" in log['3.3.1']
+    assert "Access to Remote StackTrace on error" in log['2.2']
+
+
 def test_cheroot():
     log = changelogs.get('cheroot')
     assert 'PEP8 improvements.' in log['5.2.1']
