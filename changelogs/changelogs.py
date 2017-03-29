@@ -80,6 +80,16 @@ def _bootstrap_functions(name, vendor, functions):
             "get_releases": rubygems.get_releases,
             "get_urls": rubygems.get_urls,
         })
+    elif vendor == "launchpad":
+        from . import launchpad
+        fns.update({
+            "get_metadata": launchpad.get_metadata,
+            "get_releases": launchpad.get_releases,
+            "get_urls": launchpad.get_urls,
+            "find_changelogs": launchpad.find_changelogs,
+            "get_content": launchpad.get_content,
+            "parse": launchpad.parse
+        })
 
     # load custom functions for special packages lying in custom/{vendor}/{package}.py
     custom_fns = _load_custom_functions(vendor=vendor, name=name)
