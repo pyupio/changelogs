@@ -2,6 +2,13 @@
 History
 =======
 
+0.8.0 (2016-03-29)
+------------------
+
+* added custom parser:
+  - mysqlclient, thanks @alexkiro
+* added custom launchpad backend, thanks to @alexkiro
+
 0.7.0 (2016-03-06)
 ------------------
 
