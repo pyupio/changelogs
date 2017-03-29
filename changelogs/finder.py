@@ -31,6 +31,8 @@ def validate_repo_url(url):
             return re.findall(r"https?://w?w?w?.?github.com/[\w\-]+/[\w.-]+", url)[0]
         elif "bitbucket.org" in url:
             return re.findall(r"https?://bitbucket.org/[\w.-]+/[\w.-]+", url)[0] + "/src/"
+        elif "launchpad.net" in url:
+            return re.findall(r"https?://launchpad.net/[\w.-]+", url)[0]
     except IndexError:
         pass
     return ""
