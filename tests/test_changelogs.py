@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_mysqlclient():
+    log = changelogs.get('mysqlclient')
+    assert "Deprecate context interface of Connection object." in log['1.3.10']
+    assert "Fix escape_string() doesn't work." in log['1.3.6']
+
+
 def test_py():
     log = changelogs.get('py')
     assert "avoid imports in calls to py.path.local()" in log['1.4.33']
