@@ -3,6 +3,7 @@ import os
 import imp
 import requests
 import os
+import re
 from requests import Session
 import logging
 
@@ -100,7 +101,42 @@ def _bootstrap_functions(name, vendor, functions):
     return fns
 
 
-def get(name, vendor="pypi", functions={}):
+def check_for_launchpad(old_vendor, name, urls):
+    """Check if the project is hosted on launchpad.
+
+    :param name: str, name of the project
+    :param urls: set, urls to check.
+    :return: True or False
+    """
+    if old_vendor != "pypi":
+        # XXX This might work for other starting vendors
+        # XXX but I didn't check. For now only allow
+        # XXX pypi -> launchpad.
+        return False
+
+    for url in urls:
+        if re.match(r"https?://launchpad.net/([\w.\-]+)", url):
+            return True
+    return False
+
+
+def check_switch_vendor(old_vendor, name, urls, _depth=0):
+    """Check if the project should switch vendors. E.g
+    project pushed on pypi, but changelog on launchpad.
+
+    :param name: str, name of the project
+    :param urls: set, urls to check.
+    :return: str, with the new vendor name, or empty string otherwise
+    """
+    if _depth > 3:
+        # Protect against recursive things vendors here.
+        return ""
+    if check_for_launchpad(old_vendor, name, urls):
+        return "launchpad"
+    return ""
+
+
+def get(name, vendor="pypi", functions={}, _depth=0):
     """
     Tries to find a changelog for the given package.
     :param name: str, package name
@@ -131,7 +167,16 @@ def get(name, vendor="pypi", functions={}):
         get_head_fn=fns["get_head"]
     )
     del fns
-    return changelog
+    if changelog:
+        return changelog
+
+    # We could not find any changelogs.
+    # Check to see if we can switch vendors.
+    new_vendor = check_switch_vendor(vendor, name, repos, _depth=_depth)
+    if new_vendor and new_vendor != vendor:
+        return get(name, vendor=new_vendor, functions=functions,
+                   _depth=_depth+1)
+    return {}
 
 
 def get_content(session, urls):
