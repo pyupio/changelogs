@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_launchpad_dkimpy():
+    log = changelogs.get('dkimpy')
+    assert "Fixed python3 dns lookup issue" in log['0.6.1']
+    assert "Add capability to sign and verify ARC signatures" in log['0.6.0']
+
+
 def test_mysqlclient():
     log = changelogs.get('mysqlclient')
     assert "Deprecate context interface of Connection object." in log['1.3.10']
