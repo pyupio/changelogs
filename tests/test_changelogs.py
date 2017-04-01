@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_redis():
+    log = changelogs.get("redis")
+    assert 'Discontinuted support for Python 2.5' in log['2.10.0']
+    assert 'Implemented SLAVEOF' in log['2.2.0']
+    assert 'ConnectionPool is now fork-safe' in log['2.4.12']
+
+
 def test_python_ldap():
     log = changelogs.get("python-ldap")
     assert 'experimental support for draft-vchu-ldap-pwd-policy' in log['2.4.7']
