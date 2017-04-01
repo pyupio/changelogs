@@ -21,7 +21,7 @@ def _load_custom_functions(vendor, name):
     :return: dict, functions
     """
     functions = {}
-    filename = "{}.py".format(name)
+    filename = "{}.py".format(name.lower())
     path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),  # current working dir
         "custom",  # /dir/parser
