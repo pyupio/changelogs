@@ -94,6 +94,14 @@ def test_sqlalchemy_case_insesitive():
     assert 'try/except when the mapper sets init.__name__ on a mapped class,' in log['0.2.4']
 
 
+def test_alembic():
+    log = changelogs.get("alembic")
+    assert 'Fixed bug where Postgresql JSON/JSONB' in log['0.9.0']
+    assert 'January 17, 2017' in log['0.8.10']
+    assert 'Basic support for Oracle added' in log['0.3.2']
+    assert 'Initial release' in log['0.1.0']
+
+
 def test_django_statici18n():
     log = changelogs.get("django-statici18n")
     assert 'Pass language name instead of locale name' in log['1.3.0']
