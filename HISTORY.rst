@@ -22,14 +22,14 @@ History
   - uwsgi
   - pyaudio
 
-0.8.0 (2016-03-29)
+0.8.0 (2017-03-29)
 ------------------
 
 * added custom parser:
   - mysqlclient, thanks @alexkiro
 * added custom launchpad backend, thanks to @alexkiro
 
-0.7.0 (2016-03-06)
+0.7.0 (2017-03-06)
 ------------------
 
 * added custom parsers
@@ -40,42 +40,42 @@ History
   - djangorestframework
 * tweaked the get_head function
 
-0.6.1 (2016-02-08)
+0.6.1 (2017-02-08)
 ------------------
 
 * added flake8 special parser
 
-0.6.0 (2016-02-03)
+0.6.0 (2017-02-03)
 ------------------
 
 * tweaked the parser, included tests for openpyxl
 
-0.5.0 (2016-01-23)
+0.5.0 (2017-01-23)
 ------------------
 
 * include docs-src as docs candidate
 
-0.4.0 (2016-01-23)
+0.4.0 (2017-01-23)
 ------------------
 
 * add better support for NPM packages
 
-0.3.3 (2016-01-05)
+0.3.3 (2017-01-05)
 ------------------
 
 * fix packagin error (hopefully)
 
-0.3.2 (2016-01-05)
+0.3.2 (2017-01-05)
 ------------------
 
 * use modules for custom imports, for packaging
 
-0.3.1 (2016-01-03)
+0.3.1 (2017-01-03)
 ------------------
 
 * the find_changelogs and get_urls functions now also return the repo URLs
 
-0.3.0 (2016-01-03)
+0.3.0 (2017-01-03)
 ------------------
 
 * allow to swap in the find_changelogs function
