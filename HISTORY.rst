@@ -20,6 +20,7 @@ History
   - python-ldap
   - redis
   - uwsgi
+  - pyaudio
 
 0.8.0 (2016-03-29)
 ------------------

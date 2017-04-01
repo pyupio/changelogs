@@ -18,6 +18,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pyaudio():
+    log = changelogs.get("pyaudio")
+    assert 'Fix overflow error handling logic for pa_read_stream' in log['0.2.9']
+    assert 'support non-UTF8 encoded device names' in log['0.2.8']
+    assert 'Callback-mode: support callables' in log['0.2.7']
+    assert 'Added PaMacCoreStreamInfo for Mac OS ' in log['0.2.0']
+
+
 def test_uwsgi():
     log = changelogs.get("uWSGI")
     assert 'fixed mod_proxy_uwsgi for non-blocking mode' in log['2.0.9']
