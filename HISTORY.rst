@@ -14,6 +14,7 @@ History
   - alembic
   - genshi
   - imapclient
+  - mako
 
 0.8.0 (2016-03-29)
 ------------------

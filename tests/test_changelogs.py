@@ -147,6 +147,13 @@ def test_alembic():
     assert 'Initial release' in log['0.1.0']
 
 
+def test_mako():
+    log = changelogs.get("mako")
+    assert 'Python 2.3 support is dropped' in log['0.3.0']
+    assert 'Added special compatibility for the 0.5.0' in log['0.6.1']
+    assert 'The default test runner is now py.test' in log['1.0.4']
+1
+
 def test_django_statici18n():
     log = changelogs.get("django-statici18n")
     assert 'Pass language name instead of locale name' in log['1.3.0']
