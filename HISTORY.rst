@@ -2,6 +2,12 @@
 History
 =======
 
+0.9.0 (not released)
+--------------------
+
+* Fix issue with custom parsing of packages with different case.
+
+
 0.8.0 (2016-03-29)
 ------------------
 
