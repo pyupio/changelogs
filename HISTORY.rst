@@ -16,6 +16,7 @@ History
   - imapclient
   - mako
   - pyinotify
+  - python-ldap
 
 0.8.0 (2016-03-29)
 ------------------
