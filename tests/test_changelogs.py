@@ -81,6 +81,19 @@ def test_sqlalchemy():
     assert 'try/except when the mapper sets init.__name__ on a mapped class,' in log['0.2.4']
 
 
+def test_sqlalchemy_case_insesitive():
+    log = changelogs.get('SQLAlchemy')
+    assert 'some fixes to topological sort algorithm' in log['0.1.7']
+    assert 'between invocations of joined eager loading.' in log['1.1.6']
+    assert 'Added support for ranges in window functions' in log['1.1.0b1']
+    assert 'Made a slight behavioral change in the' in log['1.1.0b2']
+    assert "Fixed detection of internal '$' characters" in log['0.3.11']
+    assert 'dded DISTINCT ON support to Postgres' in log['0.1.7']
+    assert 'fixed inappropriate evaluation of user-mapped' in log['0.6.9']
+    assert 'Fixed bug in subquery eager loading where a subqueryload' in log['1.0.15']
+    assert 'try/except when the mapper sets init.__name__ on a mapped class,' in log['0.2.4']
+
+
 def test_django_statici18n():
     log = changelogs.get("django-statici18n")
     assert 'Pass language name instead of locale name' in log['1.3.0']
