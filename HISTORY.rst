@@ -10,6 +10,7 @@ History
 * Add support for changing project name when switching vendors.
 * Add support for finding URLs in the project description.
 * Add support for ex code.google.com projects, now moved to github.
+* Add support for parsing sourceforge repos.
 * Added custom parser:
   - alembic
   - genshi

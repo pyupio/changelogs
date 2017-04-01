@@ -63,6 +63,14 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
                                              candidates=candidates)
         if changelog or repo:
             return changelog, repo
+
+        # Check the download URL as well.
+        if "download_url" in data:
+            changelog, repo = find_changelogs_fn(session=session, name=name,
+                                                 candidates=data["download_url"])
+            if changelog or repo:
+                return changelog, repo
+
         # If we could not find any repos or changelogs in the
         # standard fields. Look for URLs in the description.
         new_candidates = changelogs.url_re.findall(data["info"]["description"])

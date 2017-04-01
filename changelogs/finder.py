@@ -33,7 +33,12 @@ def validate_repo_url(url):
             return re.findall(r"https?://bitbucket.org/[\w.-]+/[\w.-]+", url)[0] + "/src/"
         elif "launchpad.net" in url:
             return re.findall(r"https?://launchpad.net/[\w.-]+", url)[0]
-    except IndexError:
+        elif "sourceforge.net" in url:
+            mo = re.match(r"https?://sourceforge.net/projects/"
+                          r"([\w.-]+)/", url, re.I)
+            template = "https://sourceforge.net/p/{}/code/HEAD/tree/trunk/src/"
+            return template.format(mo.groups()[0])
+    except (IndexError, AttributeError):
         pass
     return ""
 
@@ -68,7 +73,8 @@ def find_repo_urls(session, name, candidates):
                 for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
                     # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
                     # contains the project name
-                    if ("github.com" in link or "bitbucket.org" in link) \
+                    if ("github.com" in link or "bitbucket.org" in link or
+                            "sourceforge.net" in link) \
                             and contains_project_name(name, link):
                         link = validate_url(validate_repo_url(url=link))
                         if link:
@@ -123,6 +129,8 @@ def find_changelog(session, repo_url, deep=True):
                         match = validate_url("https://raw.githubusercontent.com" + link.replace("/blob/", "/"))
                     elif "bitbucket.org" in repo_url and "src" in link:
                         match = validate_url("https://bitbucket.org" + link.replace("/src/", "/raw/"))
+                    elif "sourceforge.net" in repo_url:
+                        match = validate_url(repo_url + link + "?format=raw")
                     if match:
                         yield match
                         match, found = False, True
