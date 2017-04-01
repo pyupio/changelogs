@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pyinotify():
+    log = changelogs.get("pyinotify")
+    assert 'IN_Q_OVERFLOW handling' in log['0.9.3']
+    assert 'new command line options `--version`' in log['0.9.1']
+    assert 'pyinotify.py is now a standalone file' in log['0.8.0']
+
+
 def test_ipaddr():
     log = changelogs.get("ipaddr")
     assert 'fix bug in _is_shorthand_ip resulting in bad teredo' in log['2.1.9']
