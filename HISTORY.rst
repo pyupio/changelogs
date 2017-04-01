@@ -19,6 +19,7 @@ History
   - pyinotify
   - python-ldap
   - redis
+  - uwsgi
 
 0.8.0 (2016-03-29)
 ------------------
