@@ -18,6 +18,16 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_launchpad_authres():
+    # This also checks the vendor and name switching functionality.
+    # The launchpad name is `authentication-results-python`
+    log = changelogs.get("authres")
+    assert 'Add support for RFC 7601 use of SMTP' in log['0.900']
+    assert 'Add support for RFC 7293' in log['0.8']
+    assert 'When stringifying RFC 5451 property value' in log['0.601']
+    assert 'IANA registry has been updated and RFC 6577' in log['0.4']
+
+
 def test_launchpad_not_existent():
     log = changelogs.get("bogus-PHxbQwWhtcutuGiqmbSozjzAsCFENVklSsxlsUXY",
                          vendor="launchpad")

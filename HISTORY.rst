@@ -9,6 +9,7 @@ History
 * Added custom parser:
   - alembic
 * Catch errors from launchpad.
+* Add support for changing project name when switching vendors.
 
 0.8.0 (2016-03-29)
 ------------------

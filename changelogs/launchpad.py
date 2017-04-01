@@ -76,6 +76,7 @@ def parse(name, content, releases, get_head_fn):
     :return: dict, changelog
     """
     try:
-        return {e["version"]: e["changelog"] for e in content["entries"]}
+        return {e["version"]: e["changelog"] for e in content["entries"]
+                if e["changelog"]}
     except KeyError:
         return {}

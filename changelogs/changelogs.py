@@ -106,18 +106,21 @@ def check_for_launchpad(old_vendor, name, urls):
 
     :param name: str, name of the project
     :param urls: set, urls to check.
-    :return: True or False
+    :return: the name of the project on launchpad, or an empty string.
     """
     if old_vendor != "pypi":
         # XXX This might work for other starting vendors
         # XXX but I didn't check. For now only allow
         # XXX pypi -> launchpad.
-        return False
+        return ''
 
     for url in urls:
-        if re.match(r"https?://launchpad.net/([\w.\-]+)", url):
-            return True
-    return False
+        try:
+            return re.match(r"https?://launchpad.net/([\w.\-]+)",
+                            url).groups()[0]
+        except AttributeError:
+            continue
+    return ''
 
 
 def check_switch_vendor(old_vendor, name, urls, _depth=0):
@@ -126,14 +129,15 @@ def check_switch_vendor(old_vendor, name, urls, _depth=0):
 
     :param name: str, name of the project
     :param urls: set, urls to check.
-    :return: str, with the new vendor name, or empty string otherwise
+    :return: tuple, (str(new vendor name), str(new project name))
     """
     if _depth > 3:
         # Protect against recursive things vendors here.
         return ""
-    if check_for_launchpad(old_vendor, name, urls):
-        return "launchpad"
-    return ""
+    new_name = check_for_launchpad(old_vendor, name, urls)
+    if new_name:
+        return "launchpad", new_name
+    return "", ""
 
 
 def get(name, vendor="pypi", functions={}, _depth=0):
@@ -172,9 +176,10 @@ def get(name, vendor="pypi", functions={}, _depth=0):
 
     # We could not find any changelogs.
     # Check to see if we can switch vendors.
-    new_vendor = check_switch_vendor(vendor, name, repos, _depth=_depth)
+    new_vendor, new_name = check_switch_vendor(vendor, name, repos,
+                                               _depth=_depth)
     if new_vendor and new_vendor != vendor:
-        return get(name, vendor=new_vendor, functions=functions,
+        return get(new_name, vendor=new_vendor, functions=functions,
                    _depth=_depth+1)
     return {}
 
