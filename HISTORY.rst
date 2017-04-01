@@ -6,13 +6,14 @@ History
 --------------------
 
 * Fix issue with custom parsing of packages with different case.
+* Catch errors from launchpad.
+* Add support for changing project name when switching vendors.
+* Add support for finding URLs in the project description.
+* Add support for ex code.google.com projects, now moved to github.
 * Added custom parser:
   - alembic
   - genshi
   - imapclient
-* Catch errors from launchpad.
-* Add support for changing project name when switching vendors.
-* Add support for finding URLs in the project description.
 
 0.8.0 (2016-03-29)
 ------------------

@@ -18,6 +18,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_ipaddr():
+    log = changelogs.get("ipaddr")
+    assert 'fix bug in _is_shorthand_ip resulting in bad teredo' in log['2.1.9']
+    assert 'r52 Force the return value in testHexRepresentation' in log['1.0.2']
+    assert 'fix iterhosts for /31\'s or /127\'s' in log['2.1.10']
+
+
 def test_imapclient():
     log = changelogs.get("IMAPClient")
     assert 'Added support for the ID command' in log['0.13']

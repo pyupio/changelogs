@@ -90,11 +90,11 @@ CHANGELOG_FILENAME_CANDIDATES = frozenset([
             "", ".txt", ".md", ".rst"
         ]
         ] for item in sublist
-])
+] + ["ReleaseNotes.wiki"])
 
 DOCS_CANDIDATES = frozenset([
-    "docs", "doc", "documentation", "docs-src",
-    "docs/", "doc/", "documentation/", "docs-src/"
+    "docs", "doc", "documentation", "docs-src", "wiki",
+    "docs/", "doc/", "documentation/", "docs-src/", "wiki/"
 ])
 
 
