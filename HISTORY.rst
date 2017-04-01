@@ -8,6 +8,7 @@ History
 * Fix issue with custom parsing of packages with different case.
 * Added custom parser:
   - alembic
+* Catch errors from launchpad.
 
 0.8.0 (2016-03-29)
 ------------------

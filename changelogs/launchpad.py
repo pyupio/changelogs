@@ -75,4 +75,7 @@ def parse(name, content, releases, get_head_fn):
     :param get_head_fn: function
     :return: dict, changelog
     """
-    return {e["version"]: e["changelog"] for e in content["entries"]}
+    try:
+        return {e["version"]: e["changelog"] for e in content["entries"]}
+    except KeyError:
+        return {}

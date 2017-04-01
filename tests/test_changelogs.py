@@ -18,6 +18,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_launchpad_not_existent():
+    log = changelogs.get("bogus-PHxbQwWhtcutuGiqmbSozjzAsCFENVklSsxlsUXY",
+                         vendor="launchpad")
+    assert not log
+
+
 def test_launchpad_dkimpy():
     log = changelogs.get('dkimpy')
     assert "Fixed python3 dns lookup issue" in log['0.6.1']
