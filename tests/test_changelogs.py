@@ -18,6 +18,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_3to2():
+    # This also find URL in the description.
+    log = changelogs.get("3to2")
+    assert 'First release after Google Summer of Code' in log['0.1a1']
+    assert 'Development is now done exclusively in Python 3' in log['0.1b1']
+    assert 'new explicit-only fixer for unittest -> unittest' in log['1.0']
+
+
 def test_launchpad_authres():
     # This also checks the vendor and name switching functionality.
     # The launchpad name is `authentication-results-python`
