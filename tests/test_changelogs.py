@@ -18,8 +18,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_imapclient():
+    log = changelogs.get("IMAPClient")
+    assert 'Added support for the ID command' in log['0.13']
+    assert 'Fetch responses now include a "SEQ"' in log['0.6']
+    assert 'OAUTH Support (54)' in log['0.8']
+
+
 def test_genshi():
-    # This also find URL in the description.
     log = changelogs.get("genshi")
     assert 'Add support for Python 3.1, 3.2 and 3.3' in log['0.7.0']
     assert 'The builder API now accepts streams as children' in log['0.3.6']

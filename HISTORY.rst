@@ -9,6 +9,7 @@ History
 * Added custom parser:
   - alembic
   - genshi
+  - imapclient
 * Catch errors from launchpad.
 * Add support for changing project name when switching vendors.
 * Add support for finding URLs in the project description.
