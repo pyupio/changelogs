@@ -8,6 +8,7 @@ History
 * Fix issue with custom parsing of packages with different case.
 * Added custom parser:
   - alembic
+  - genshi
 * Catch errors from launchpad.
 * Add support for changing project name when switching vendors.
 * Add support for finding URLs in the project description.
