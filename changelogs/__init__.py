@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 from requests import Session
 from .changelogs import get
 
@@ -15,3 +16,6 @@ else:
 __author__ = """Jannis Gebauer"""
 __email__ = 'jay@pyup.io'
 __version__ = '0.8.0'
+
+
+url_re = re.compile(r"(https?://[^\s<>\"'\x7f-\xff]+)", re.IGNORECASE)

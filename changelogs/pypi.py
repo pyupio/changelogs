@@ -2,6 +2,8 @@
 from __future__ import absolute_import, print_function, unicode_literals
 from packaging.version import parse
 
+import changelogs
+
 
 def get_metadata(session, name):
     """
@@ -57,5 +59,7 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
             name=name,
             latest_release=next(iter(get_releases(data)))
         ))
+        for url in changelogs.url_re.findall(data["info"]["description"]):
+            candidates.append(url)
         return find_changelogs_fn(session=session, name=name, candidates=candidates)
     return set(), set()

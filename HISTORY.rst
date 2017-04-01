@@ -10,6 +10,7 @@ History
   - alembic
 * Catch errors from launchpad.
 * Add support for changing project name when switching vendors.
+* Add support for finding URLs in the project description.
 
 0.8.0 (2016-03-29)
 ------------------
