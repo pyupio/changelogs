@@ -21,7 +21,9 @@ def _load_custom_functions(vendor, name):
     :return: dict, functions
     """
     functions = {}
-    filename = "{}.py".format(name.lower())
+    # Some packages have dash in their name, replace them with underscore
+    # E.g. python-ldap to python_ldap
+    filename = "{}.py".format(name.replace("-", "_").lower())
     path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),  # current working dir
         "custom",  # /dir/parser
