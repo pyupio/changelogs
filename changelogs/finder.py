@@ -84,7 +84,8 @@ def find_repo_urls(session, name, candidates):
 CHANGELOG_FILENAME_CANDIDATES = frozenset([
     item for sublist in [
         [f + e, f.upper() + e, f.capitalize() + e] for f in [
-            "history", "news", "releases", "changes", "changelog", "log"
+            "history", "news", "releases", "release", "changes",
+            "changelog", "log"
         ] for e in [
             "", ".txt", ".md", ".rst"
         ]
