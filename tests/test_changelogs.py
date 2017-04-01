@@ -18,6 +18,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_uwsgi():
+    log = changelogs.get("uWSGI")
+    assert 'fixed mod_proxy_uwsgi for non-blocking mode' in log['2.0.9']
+    assert 'fixed python3 support on older compilers/libc' in log['2.0.2']
+    assert 'backported gevent-early-monkey-patch' in log['2.0.14']
+    assert 'Don\'t lower security standards with gcc 4.9' in log['2.0.10']
+
+
 def test_redis():
     log = changelogs.get("redis")
     assert 'Discontinuted support for Python 2.5' in log['2.10.0']

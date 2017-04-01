@@ -9,7 +9,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",)
+ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",
+                            "get_content")
 
 
 def _load_custom_functions(vendor, name):
