@@ -2,8 +2,8 @@
 History
 =======
 
-0.9.0 (not released)
---------------------
+0.9.0 (2017-04-05)
+------------------
 
 * Fix issue with custom parsing of packages with different case.
 * Catch errors from launchpad.
