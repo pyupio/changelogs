@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",
                             "get_content")
 
+GITHUB_API_TOKEN = os.environ.get("CHANGELOGS_GITHUB_API_TOKEN", False)
+
 
 def _load_custom_functions(vendor, name):
     """
@@ -198,10 +200,23 @@ def get_content(session, urls):
     content = ""
     for url in urls:
         try:
-            resp = session.get(url)
-            logger.info("GET changelog from {url}".format(url=url))
-            if resp.status_code == 200:
-                content += "\n\n" + resp.text
+            logger.debug("GET changelog from {url}".format(url=url))
+            if "https://api.github.com" in url and url.endswith("releases"):
+                # this is a github API release page, fetch it if token is set
+                if not GITHUB_API_TOKEN:
+                    logger.warning("Fetching release pages requires CHANGELOGS_GITHUB_API_TOKEN "
+                                   "to be set")
+                    continue
+                resp = session.get(url, headers={
+                    "Authorization": "token {}".format(GITHUB_API_TOKEN)
+                })
+                if resp.status_code == 200:
+                    for item in resp.json():
+                        content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+            else:
+                resp = session.get(url)
+                if resp.status_code == 200:
+                    content += "\n\n" + resp.text
         except requests.ConnectionError:
             pass
     return content

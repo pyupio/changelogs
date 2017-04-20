@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import pytest
 import changelogs
+from unittest.mock import patch
 
 """
 bcryptor
@@ -16,6 +17,39 @@ def record(monkeypatch, betamax_session):
     def session():
         return betamax_session
     monkeypatch.setattr("changelogs.changelogs.Session", session)
+
+
+def test_graphene():
+    # test without token
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
+        log = changelogs.get("graphene")
+        assert len(log) == 0
+
+    # ██████╗  █████╗ ███╗   ██╗ ██████╗ ███████╗██████╗
+    # ██╔══██╗██╔══██╗████╗  ██║██╔════╝ ██╔════╝██╔══██╗
+    # ██║  ██║███████║██╔██╗ ██║██║  ███╗█████╗  ██████╔╝
+    # ██║  ██║██╔══██║██║╚██╗██║██║   ██║██╔══╝  ██╔══██╗
+    # ██████╔╝██║  ██║██║ ╚████║╚██████╔╝███████╗██║  ██║
+    # ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    #
+    # recording this test requires a valid GitHub API token to be set
+    # if the test needs to be re-recorded
+    # - replace the token with a real token
+    # - re record the test
+    # - open the recording, remove the real token
+    # - remove the real token from the test
+
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
+        log = changelogs.get("graphene")
+        assert 'Fixed bug when no middlewares are present' in log['0.10.1']
+        assert 'Fix context arg in connections' in log['0.10.0']
+        assert '`UnionType` resolver' in log['0.7.1']
+        assert 'Register types as schema access it.' in log['0.3.0']
+
+
+def test_graphene_without_github_api_token():
+    log = changelogs.get("graphene")
+    assert log.keys(), []
 
 
 def test_pyaudio():
@@ -237,11 +271,6 @@ def test_openpyxl():
 def test_fs_extra():
     log = changelogs.get("fs-extra", vendor="npm")
     assert "Added methods rmrf and rmrfSync" in log["0.0.3"]
-
-
-def test_spacesocket():
-    log = changelogs.get("spacesocket", vendor="npm")
-    assert log == {}
 
 
 def test_json2():

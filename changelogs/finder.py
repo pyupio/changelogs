@@ -78,7 +78,7 @@ def find_repo_urls(session, name, candidates):
                             and contains_project_name(name, link):
                         link = validate_url(validate_repo_url(url=link))
                         if link:
-                            logger.info("Found repo URL {}".format(link))
+                            logger.debug("Found repo URL {}".format(link))
                             yield link
         except ConnectionError:
             # we really don't care about connection errors here. a lot of project pages are simply
@@ -112,6 +112,7 @@ def find_changelog(session, repo_url, deep=True):
     :param deep: bool, deep search
     :return: str, URL to the raw changelog content
     """
+    logger.debug("Trying to find changelog on repo {}".format(repo_url))
     resp = session.get(repo_url)
     if resp.status_code == 200:
         # build up a list of URLs on this repo. xpath() isn't returning raw strings, so we have to
@@ -157,6 +158,24 @@ def find_changelog(session, repo_url, deep=True):
                                 sublink = False
 
 
+def find_release_page(session, repo_url):
+    if "github.com" in repo_url:
+        logger.debug("Unable to find changelog on {}, try release page".format(repo_url))
+        try:
+            username, reponame = repo_url.split("/")[3:5]
+            # try to fetch the release page. if it 200s, yield the release page
+            # api URL for further processing
+            resp = session.get("https://github.com/{username}/{reponame}/releases".format(
+                username=username, reponame=reponame
+            ))
+            if resp.status_code == 200:
+                yield "https://api.github.com/repos/{username}/{reponame}/releases".format(
+                    username=username, reponame=reponame
+                )
+        except IndexError:
+            logger.debug("Unable to construct releases url for {}".format(repo_url))
+
+
 def find_changelogs(session, name, candidates):
     """
     Tries to find changelogs on the given URL candidates
@@ -167,16 +186,25 @@ def find_changelogs(session, name, candidates):
     """
     # first, we are going to filter down the URL candidates to be all valid urls
     candidates = set(url for url in [validate_url(_url) for _url in candidates] if url)
-
+    logger.info("Got repo candidates {}".format(candidates))
     repos = set(url for url in [validate_repo_url(_url) for _url in candidates] if url)
-
+    logger.info("Filtered initial candidates down to {}".format(repos))
     # if we are lucky and there isn't a valid repo URL in our URL candidates, we need to go deeper
     # and check the URLs if they contain a link to a repo
     if not repos:
+        logger.info("No repo found, trying to find one on related sites {}".format(candidates))
         repos = set(find_repo_urls(session, name, candidates))
 
-    def changelogs_urls():
+    urls = []
+    for repo in repos:
+        for url in find_changelog(session, repo):
+            urls.append(url)
+
+    if not urls:
+        # at this point we failed to fetch a changelog from plain files. we might find one on the
+        # github release page.
+        logger.debug("No plain changelog urls found, trying release page")
         for repo in repos:
-            for url in find_changelog(session, repo):
-                yield url
-    return set(changelogs_urls()), repos
+            for url in find_release_page(session, repo):
+                urls.append(url)
+    return set(urls), repos
