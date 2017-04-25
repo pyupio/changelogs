@@ -66,24 +66,25 @@ def find_repo_urls(session, name, candidates):
     :return: str, URL to a repo
     """
     for _url in candidates:
-        try:
-            resp = session.get(_url)
-            if resp.status_code == 200:
-                tree = etree.HTML(resp.content)
-                for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
-                    # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
-                    # contains the project name
-                    if ("github.com" in link or "bitbucket.org" in link or
-                            "sourceforge.net" in link) \
-                            and contains_project_name(name, link):
-                        link = validate_url(validate_repo_url(url=link))
-                        if link:
-                            logger.debug("Found repo URL {}".format(link))
-                            yield link
-        except ConnectionError:
-            # we really don't care about connection errors here. a lot of project pages are simply
-            # down because the project is no longer maintained
-            pass
+        if validate_url(_url):
+            try:
+                resp = session.get(_url)
+                if resp.status_code == 200:
+                    tree = etree.HTML(resp.content)
+                    for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
+                        # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
+                        # contains the project name
+                        if ("github.com" in link or "bitbucket.org" in link or
+                                "sourceforge.net" in link) \
+                                and contains_project_name(name, link):
+                            link = validate_url(validate_repo_url(url=link))
+                            if link:
+                                logger.debug("Found repo URL {}".format(link))
+                                yield link
+            except ConnectionError:
+                # we really don't care about connection errors here. a lot of project pages are simply
+                # down because the project is no longer maintained
+                pass
 
 # changelogs come in all forms and colors. This set contains most of them, e.g. (HISTORY, history,
 # History.md, HISTORY.rst ... etc.)
@@ -199,9 +200,10 @@ def find_changelogs(session, name, candidates):
     :param candidates: list, URL candidates
     :return: tuple, (set(changelog URLs), set(repo URLs))
     """
-
+    print("FIND_CHANGELOGS")
     repos = filter_repo_urls(candidates=candidates)
-
+    print(repos)
+    print(candidates)
     # if we are lucky and there isn't a valid repo URL in our URL candidates, we need to go deeper
     # and check the URLs if they contain a link to a repo
     if not repos:
