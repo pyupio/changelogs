@@ -18,6 +18,85 @@ def record(monkeypatch, betamax_session):
         return betamax_session
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
+def test_promise():
+    # test without token
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
+        log = changelogs.get("promise")
+        assert len(log) == 0
+
+    # ██████╗  █████╗ ███╗   ██╗ ██████╗ ███████╗██████╗
+    # ██╔══██╗██╔══██╗████╗  ██║██╔════╝ ██╔════╝██╔══██╗
+    # ██║  ██║███████║██╔██╗ ██║██║  ███╗█████╗  ██████╔╝
+    # ██║  ██║██╔══██║██║╚██╗██║██║   ██║██╔══╝  ██╔══██╗
+    # ██████╔╝██║  ██║██║ ╚████║╚██████╔╝███████╗██║  ██║
+    # ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    #
+    # recording this test requires a valid GitHub API token to be set
+    # if the test needs to be re-recorded
+    # - replace the token with a real token
+    # - re record the test
+    # - open the recording, remove the real token
+    # - remove the real token from the test
+
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
+        log = changelogs.get("promise")
+        assert 'This is a completely rewritten version' in log['2.0.0']
+        assert 'First version of promise.' in log['0.4.0']
+
+
+def test_graphql():
+    # test without token
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
+        log = changelogs.get("graphql-core")
+        assert len(log) == 0
+
+    # ██████╗  █████╗ ███╗   ██╗ ██████╗ ███████╗██████╗
+    # ██╔══██╗██╔══██╗████╗  ██║██╔════╝ ██╔════╝██╔══██╗
+    # ██║  ██║███████║██╔██╗ ██║██║  ███╗█████╗  ██████╔╝
+    # ██║  ██║██╔══██║██║╚██╗██║██║   ██║██╔══╝  ██╔══██╗
+    # ██████╔╝██║  ██║██║ ╚████║╚██████╔╝███████╗██║  ██║
+    # ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    #
+    # recording this test requires a valid GitHub API token to be set
+    # if the test needs to be re-recorded
+    # - replace the token with a real token
+    # - re record the test
+    # - open the recording, remove the real token
+    # - remove the real token from the test
+
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
+        log = changelogs.get("graphql-core")
+        assert 'Included a new fast experimental executor that retrieves resolvers' in log['1.1.0']
+        assert 'Removed print statements' in log['1.0.1']
+        assert 'This release implements the Type Validation System' in log['0.1a4']
+
+
+def test_brotli():
+    # test without token
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
+        log = changelogs.get("brotli")
+        assert len(log) == 0
+
+    # ██████╗  █████╗ ███╗   ██╗ ██████╗ ███████╗██████╗
+    # ██╔══██╗██╔══██╗████╗  ██║██╔════╝ ██╔════╝██╔══██╗
+    # ██║  ██║███████║██╔██╗ ██║██║  ███╗█████╗  ██████╔╝
+    # ██║  ██║██╔══██║██║╚██╗██║██║   ██║██╔══╝  ██╔══██╗
+    # ██████╔╝██║  ██║██║ ╚████║╚██████╔╝███████╗██║  ██║
+    # ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    #
+    # recording this test requires a valid GitHub API token to be set
+    # if the test needs to be re-recorded
+    # - replace the token with a real token
+    # - re record the test
+    # - open the recording, remove the real token
+    # - remove the real token from the test
+
+    with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
+        log = changelogs.get("brotli")
+        assert 'better compression on 1MiB+ files' in log['0.6.0']
+        assert 'fixed decoder bugs' in log['0.4.0']
+        assert 'Converted encoder to plain C' in log['0.5.2']
+
 
 def test_graphene():
     # test without token
