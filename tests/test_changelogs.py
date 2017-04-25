@@ -47,11 +47,6 @@ def test_graphene():
         assert 'Register types as schema access it.' in log['0.3.0']
 
 
-def test_graphene_without_github_api_token():
-    log = changelogs.get("graphene")
-    assert log.keys(), []
-
-
 def test_pyaudio():
     log = changelogs.get("pyaudio")
     assert 'Fix overflow error handling logic for pa_read_stream' in log['0.2.9']
