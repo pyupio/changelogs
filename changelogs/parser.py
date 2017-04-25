@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 from packaging.version import Version, InvalidVersion
+from gitchangelog.gitchangelog import changelog, GitRepos
+import subprocess
+import shutil
 
 INVALID_LINE_START = frozenset(["-", "*", " ", "\t", "<!--"])
 INVALID_LINE_ENDS = frozenset(["."])
@@ -117,3 +120,24 @@ def get_head(name, line, releases):
         except InvalidVersion as e:
             pass
     return False
+
+
+def parse_commit_log(name, content, releases, get_head_fn):
+    """
+    Parses the given commit log
+    :param name: str, package name
+    :param content: list, directory paths
+    :param releases: list, releases
+    :param get_head_fn: function
+    :return: dict, changelog
+    """
+    log = ""
+    raw_log = ""
+    for path, _ in content:
+        log += "\n".join(changelog(repository=GitRepos(path), tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
+        raw_log += "\n" + subprocess.check_output(
+            ["git", "-C", dir, "--no-pager", "log", "--decorate"]).decode("utf-8")
+        shutil.rmtree(path)
+    log = parse(name, log, releases, get_head_fn)
+
+    return log, raw_log

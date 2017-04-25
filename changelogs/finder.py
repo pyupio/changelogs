@@ -176,6 +176,21 @@ def find_release_page(session, repo_url):
             logger.debug("Unable to construct releases url for {}".format(repo_url))
 
 
+def filter_repo_urls(candidates):
+    """
+    Filters down a list of URL candidates
+    :param candidates: list, URL candidates
+    :return: set, Repo URLs
+    """
+    # first, we are going to filter down the URL candidates to be all valid urls
+    candidates = set(url for url in [validate_url(_url) for _url in candidates] if url)
+    logger.info("Got repo candidates {}".format(candidates))
+    repos = set(url for url in [validate_repo_url(_url) for _url in candidates] if url)
+    logger.info("Filtered initial candidates down to {}".format(repos))
+
+    return repos
+
+
 def find_changelogs(session, name, candidates):
     """
     Tries to find changelogs on the given URL candidates
@@ -184,11 +199,9 @@ def find_changelogs(session, name, candidates):
     :param candidates: list, URL candidates
     :return: tuple, (set(changelog URLs), set(repo URLs))
     """
-    # first, we are going to filter down the URL candidates to be all valid urls
-    candidates = set(url for url in [validate_url(_url) for _url in candidates] if url)
-    logger.info("Got repo candidates {}".format(candidates))
-    repos = set(url for url in [validate_repo_url(_url) for _url in candidates] if url)
-    logger.info("Filtered initial candidates down to {}".format(repos))
+
+    repos = filter_repo_urls(candidates=candidates)
+
     # if we are lucky and there isn't a valid repo URL in our URL candidates, we need to go deeper
     # and check the URLs if they contain a link to a repo
     if not repos:
@@ -207,4 +220,39 @@ def find_changelogs(session, name, candidates):
         for repo in repos:
             for url in find_release_page(session, repo):
                 urls.append(url)
+    return set(urls), repos
+
+
+def find_git_repo(session, name, candidates):
+    """
+    Tries to find git repos on the given URL candidates
+    :param session: requests Session instance
+    :param name: str, project name
+    :param candidates: list, URL candidates
+    :return: tuple, (set(git URLs), set(repo URLs))
+    """
+
+    repos = filter_repo_urls(candidates=candidates)
+
+    # if we are lucky and there isn't a valid repo URL in our URL candidates, we need to go deeper
+    # and check the URLs if they contain a link to a repo
+    if not repos:
+        logger.info("No repo found, trying to find one on related sites {}".format(candidates))
+        repos = set(find_repo_urls(session, name, candidates))
+
+    urls = []
+    for repo in repos:
+        username, reponame = repo.split("/")[3:5]
+        if "github.com" in repo:
+            urls.append(
+                "https://github.com/{username}/{reponame}.git".format(
+                    username=username, reponame=reponame
+                )
+            )
+        elif "bitbucket.org" in repo:
+            urls.append(
+                "https://bitbucket.org/{username}/{reponame}".format(
+                    username=username, reponame=reponame
+                )
+            )
     return set(urls), repos

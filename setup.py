@@ -13,12 +13,11 @@ requirements = [
     'requests',
     'validators',
     'packaging',
-    'lxml'
-    # TODO: put package requirements here
+    'lxml',
+    'gitchangelog'
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
     'pytest',
     'pytest-cov',
     'betamax',

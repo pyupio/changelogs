@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
+import subprocess
+from tempfile import mkdtemp
 import imp
 import requests
 import os
@@ -189,6 +190,29 @@ def get(name, vendor="pypi", functions={}, _depth=0):
     return {}
 
 
+def get_commit_log(name, vendor='pypi', functions={}, _depth=0):
+    """
+    Tries to parse a changelog from the raw commit log.
+    :param name: str, package name
+    :param vendor: str, vendor
+    :param functions: dict, custom functions
+    :return: tuple, (dict -> commit log, str -> raw git log)
+    """
+    if "find_changelogs" not in functions:
+        from .finder import find_git_repo
+        functions["find_changelogs"] = find_git_repo
+    if "get_content" not in functions:
+        functions["get_content"] = clone_repo
+    if "parse" not in functions:
+        from .parser import parse_commit_log
+        functions["parse"] = parse_commit_log
+    return get(
+        name=name,
+        vendor=vendor,
+        functions=functions
+    )
+
+
 def get_content(session, urls):
     """
     Loads the content from URLs, ignoring connection errors.
@@ -220,3 +244,19 @@ def get_content(session, urls):
         except requests.ConnectionError:
             pass
     return content
+
+
+def clone_repo(session, urls):
+    """
+    Clones the given repos in temp directories
+    :param session: requests Session instance
+    :param urls: list, str URLs
+    :return: tuple, (str -> directory, str -> URL)
+    """
+    repos = []
+    for url in urls:
+        dir = mkdtemp()
+        call = ["git", "clone", url, dir]
+        subprocess.call(call)
+        repos.append((dir, url))
+    return repos

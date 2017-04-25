@@ -2,7 +2,7 @@
 import os
 import re
 from requests import Session
-from .changelogs import get
+from .changelogs import get, get_commit_log
 
 """
 if os.environ.get("DEBUG", "") in ("TRUE", "True", "true"):
