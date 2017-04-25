@@ -136,7 +136,7 @@ def parse_commit_log(name, content, releases, get_head_fn):
     for path, _ in content:
         log += "\n".join(changelog(repository=GitRepos(path), tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
         raw_log += "\n" + subprocess.check_output(
-            ["git", "-C", dir, "--no-pager", "log", "--decorate"]).decode("utf-8")
+            ["git", "-C", path, "--no-pager", "log", "--decorate"]).decode("utf-8")
         shutil.rmtree(path)
     log = parse(name, log, releases, get_head_fn)
 
