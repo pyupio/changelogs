@@ -200,10 +200,7 @@ def find_changelogs(session, name, candidates):
     :param candidates: list, URL candidates
     :return: tuple, (set(changelog URLs), set(repo URLs))
     """
-    print("FIND_CHANGELOGS")
     repos = filter_repo_urls(candidates=candidates)
-    print(repos)
-    print(candidates)
     # if we are lucky and there isn't a valid repo URL in our URL candidates, we need to go deeper
     # and check the URLs if they contain a link to a repo
     if not repos:
