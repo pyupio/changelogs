@@ -18,6 +18,14 @@ def record(monkeypatch, betamax_session):
         return betamax_session
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
+
+def test_django_jinja():
+    log = changelogs.get("django-jinja")
+    assert 'Fix compatibility issues with django 1.11' in log['2.3.0']
+    assert 'Add generic views helpers' in log['1.4.0']
+    assert 'Fix template loaders order.' in log['1.0.5']
+
+
 def test_promise():
     # test without token
     with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
