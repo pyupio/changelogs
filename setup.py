@@ -18,6 +18,7 @@ requirements = [
 ]
 
 test_requirements = [
+    'mock',
     'pytest',
     'pytest-cov',
     'betamax',

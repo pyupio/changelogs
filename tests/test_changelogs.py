@@ -3,7 +3,10 @@
 from __future__ import unicode_literals
 import pytest
 import changelogs
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 """
 bcryptor
