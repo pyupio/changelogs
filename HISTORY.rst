@@ -5,7 +5,10 @@ History
 UNRELEASED
 ------------------
 
-
+0.10.0 (2017-04-26)
+-------------------
+* Added support for GitHub release pages
+* Added experimental support for git commit log parsing
 
 0.9.0 (2017-04-05)
 ------------------
