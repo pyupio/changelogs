@@ -52,7 +52,9 @@ def contains_project_name(name, link):
     """
     def unclutter(string):
         # strip out all python references and remove all excessive characters
-        string = string.lower().replace("python-", "").replace("py-", "")
+        string = string.lower().replace("_", "-").replace(".", "-")
+        for replace in ["python-", "py-", "-py", "-python"]:
+            string = string.replace(replace, "")
         return re.sub("[^0123456789 a-zA-Z]", "", string).strip()
     return unclutter(name) in unclutter(link)
 
@@ -210,6 +212,10 @@ def find_changelogs(session, name, candidates):
     urls = []
     for repo in repos:
         for url in find_changelog(session, repo):
+            if not contains_project_name(name, url):
+                logger.debug("Found changelog on {url}, but it does not contain the project name "
+                             "{name}, ""aborting".format(name=name, url=url))
+                continue
             urls.append(url)
 
     if not urls:
@@ -217,8 +223,10 @@ def find_changelogs(session, name, candidates):
         # github release page.
         logger.debug("No plain changelog urls found, trying release page")
         for repo in repos:
-            for url in find_release_page(session, repo):
-                urls.append(url)
+            # make sure the link to the release page contains the project name
+            if contains_project_name(name, repo):
+                for url in find_release_page(session, repo):
+                    urls.append(url)
     return set(urls), repos
 
 
