@@ -62,7 +62,7 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
         # Check the download URL as well.
         if "download_url" in data:
             candidates.append(data["download_url"])
-
-        candidates.extend(changelogs.url_re.findall(data["info"]["description"]))
+        if data['info']['description']:
+            candidates.extend(changelogs.url_re.findall(data["info"]["description"]))
         return find_changelogs_fn(session=session, name=name, candidates=candidates)
     return set(), set()
