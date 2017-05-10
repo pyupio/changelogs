@@ -22,6 +22,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_beautifulsoup4():
+    log = changelogs.get("beautifulsoup4")
+    assert 'Applied patch from Ben Last' in log['1.2']
+    assert 'Fixed foster parenting when html5lib' in log['4.5.3']
+    assert 'Fixed a bug with the string setter that moved' in log['4.0.4']
+
+
 def test_dj_dashboard():
     log = changelogs.get("dj-dashboard")
     assert log == {}
