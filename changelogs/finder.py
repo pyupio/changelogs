@@ -87,6 +87,9 @@ def find_repo_urls(session, name, candidates):
                 # we really don't care about connection errors here. a lot of project pages are simply
                 # down because the project is no longer maintained
                 pass
+            except etree.XMLSyntaxError:
+                # unable to parse HTML
+                pass
 
 # changelogs come in all forms and colors. This set contains most of them, e.g. (HISTORY, history,
 # History.md, HISTORY.rst ... etc.)
