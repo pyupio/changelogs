@@ -196,13 +196,11 @@ def test_brotli():
         assert 'Converted encoder to plain C' in log['0.5.2']
 
 
-# Todo: write a special parser for graphene
-"""
 def test_graphene():
     # test without token
     with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
         log = changelogs.get("graphene")
-        assert len(log) == 16
+        assert len(log) == 0
 
     # ██████╗  █████╗ ███╗   ██╗ ██████╗ ███████╗██████╗
     # ██╔══██╗██╔══██╗████╗  ██║██╔════╝ ██╔════╝██╔══██╗
@@ -220,12 +218,7 @@ def test_graphene():
 
     with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
         log = changelogs.get("graphene")
-        assert len(log) == 32
-        assert 'Fixed bug when no middlewares are present' in log['0.10.1']
-        assert 'Fix context arg in connections' in log['0.10.0']
-        assert '`UnionType` resolver' in log['0.7.1']
-        assert 'Register types as schema access it.' in log['0.3.0']
-"""
+        assert len(log) == 29
 
 def test_pyaudio():
     log = changelogs.get("pyaudio")
