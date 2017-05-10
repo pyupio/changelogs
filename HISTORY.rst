@@ -5,6 +5,16 @@ History
 UNRELEASED
 ------------------
 
+0.11.0 (2017-05-10)
+-------------------
+
+* The changelog finder now checks repo URLs if they contain the given project name. This should
+ make it easier to identify false changelogs.
+* Fixed a couple of internal errors on edge cases.
+* Added custom parsers for:
+  - graphene
+  - beautifulsoup4
+
 0.10.0 (2017-04-26)
 -------------------
 * Added support for GitHub release pages
