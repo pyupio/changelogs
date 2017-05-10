@@ -91,6 +91,8 @@ def find_repo_urls(session, name, candidates):
             except etree.XMLSyntaxError:
                 # unable to parse HTML
                 pass
+            except UnicodeEncodeError:
+                pass
 
 # changelogs come in all forms and colors. This set contains most of them, e.g. (HISTORY, history,
 # History.md, HISTORY.rst ... etc.)
@@ -125,7 +127,10 @@ def find_changelog(session, repo_url, deep=True):
         # build up a list of URLs on this repo. xpath() isn't returning raw strings, so we have to
         # convert them first. We also need to strip out all GET parameters if any.
         tree = etree.HTML(resp.content)
-        links = frozenset([str(l).split("?")[0] for l in tree.xpath("//a/@href")])
+        try:
+            links = frozenset([str(l).split("?")[0] for l in tree.xpath("//a/@href")])
+        except UnicodeEncodeError:
+            links = []
         match, found = False, False
         for link in links:
             # we are going to check for valid changelog links on the root first. We do that by
