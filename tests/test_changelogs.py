@@ -22,6 +22,86 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_dj_dashboard():
+    log = changelogs.get("dj-dashboard")
+    assert log == {}
+
+
+def test_pyzmq_static():
+    log = changelogs.get("pyzmq-static")
+    assert log == {}
+
+
+def test_matrix_angular_sdk():
+    log = changelogs.get("matrix-angular-sdk")
+    assert log == {}
+
+
+def test_slc_facetedcalendar():
+    log = changelogs.get("slc.facetedcalendar")
+    assert log == {}
+
+
+def test_zodbtools():
+    log = changelogs.get("zodbtools")
+    assert log == {}
+
+
+def test_pywsman():
+    log = changelogs.get("pywsman")
+    assert log == {}
+
+
+def test_djangovisor():
+    log = changelogs.get("djangovisor")
+    assert log == {}
+
+
+def test_requesocks():
+    log = changelogs.get("requesocks")
+    assert log == {}
+
+
+def test_att_iot_client():
+    log = changelogs.get("att-iot-client")
+    assert log == {}
+
+
+def test_sandboxlib():
+    log = changelogs.get("test_sandboxlib")
+    assert log == {}
+
+
+def test_mezzaninefor1_7():
+    log = changelogs.get("mezzaninefor1.7")
+    assert log == {}
+
+
+def test_sphinx_html5_basic_theme():
+    log = changelogs.get("sphinx-html5-basic-theme")
+    assert log == {}
+
+
+def test_gbptestheat():
+    log = changelogs.get("test_gbptestheat")
+    assert log == {}
+
+
+def test_ff_find():
+    log = changelogs.get("ff-find")
+    assert log == {}
+
+
+def test_django_filebrowser_no_grappelli_demencia():
+    log = changelogs.get("django-filebrowser-no-grappelli-emencia")
+    assert log == {}
+
+
+def test_experimental_noacquisition():
+    log = changelogs.get("experimental.noacquisition")
+    assert log == {}
+
+
 def test_django_jinja():
     log = changelogs.get("django-jinja")
     assert 'Fix compatibility issues with django 1.11' in log['2.3.0']
@@ -918,7 +998,7 @@ def test_algebraixlib():
 
 def test_algoliasearch():
     log = changelogs.get("algoliasearch")
-    assert "* Do not ship the certificates anymore" in log["1.12.0"]
+    assert "* Fixed listIndexes pagination, not working if page=0" in log["2.9.1"]
 
 
 def test_algoliasearch_django():
