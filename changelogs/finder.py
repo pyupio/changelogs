@@ -73,16 +73,17 @@ def find_repo_urls(session, name, candidates):
                 resp = session.get(_url)
                 if resp.status_code == 200:
                     tree = etree.HTML(resp.content)
-                    for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
-                        # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
-                        # contains the project name
-                        if ("github.com" in link or "bitbucket.org" in link or
-                                "sourceforge.net" in link) \
-                                and contains_project_name(name, link):
-                            link = validate_url(validate_repo_url(url=link))
-                            if link:
-                                logger.debug("Found repo URL {}".format(link))
-                                yield link
+                    if tree:
+                        for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
+                            # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
+                            # contains the project name
+                            if ("github.com" in link or "bitbucket.org" in link or
+                                    "sourceforge.net" in link) \
+                                    and contains_project_name(name, link):
+                                link = validate_url(validate_repo_url(url=link))
+                                if link:
+                                    logger.debug("Found repo URL {}".format(link))
+                                    yield link
             except ConnectionError:
                 # we really don't care about connection errors here. a lot of project pages are simply
                 # down because the project is no longer maintained
