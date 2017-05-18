@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_braces():
+    log = changelogs.get("django-braces")
+    assert ':bug:`212 major` Small changes for Django 1.10 compatibility.' in log['1.10.0']
+
+
 def test_mccabe():
     log = changelogs.get("mccabe")
     assert 'Fix signature for ``PathGraphingAstVisitor.default``' in log['0.6.1']
