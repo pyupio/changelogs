@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_sphinx_rtd_theme():
+    log = changelogs.get("sphinx_rtd_theme")
+    assert 'Yet another patch to deal with extra builders' in log['0.2.4']
+
+
 def test_docutils():
     log = changelogs.get("docutils")
     assert '- New HTML writer generating `HTML 5`_.' in log['0.13.1']
