@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_whitenoise():
+    log = changelogs.get("whitenoise")
+    assert 'Handle non-ASCII URLs correctly when using the' in log['3.2.1']
+
+
 def test_sphinx_rtd_theme():
     log = changelogs.get("sphinx_rtd_theme")
     assert 'Yet another patch to deal with extra builders' in log['0.2.4']
