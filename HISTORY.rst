@@ -5,6 +5,32 @@ History
 UNRELEASED
 ------------------
 
+0.12.0 (2017-05-18)
+-------------------
+* Added a bunch of custom parser:
+ - flake8
+ - pyyaml
+ - six
+ - factory-boy
+ - jinja2
+ - docutils
+ - sphinx-rtd-theme
+ - whitenoise
+ - numpy
+ - beautifulsoup4
+ - mccabe
+ - django-braces
+ - alabaster
+ - cffi
+ - django-coverage-plugin
+ - newrelic
+ - pandas
+ - twine
+ - pep8-naming
+ - django-storages-redux
+ - pbr
+
+
 0.11.0 (2017-05-10)
 -------------------
 
