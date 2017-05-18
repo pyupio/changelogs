@@ -22,6 +22,17 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_newrelic():
+    log = changelogs.get("newrelic")
+    assert "includes support for Tornado 4.5 as well" in log['2.86.1.66']
+    assert "Datastore instance information for psycopg2" in log['2.72.0.52']
+    assert "Prior to this version, automatic browser monitoring for HTM" in log['2.26.0.22']
+    assert "New Relic is pleased to announce introductory" in log['2.62.0.47']
+    assert "When using high security mode" in log['2.30.0.27']
+    assert "When using the Python agent with Django REST Framework" in log['2.80.0.60']
+    assert "Fixes an agent bug with PostgreSQL" in log['2.16.0.12']
+
+
 def test_pbr():
     log = changelogs.get('pbr')
     assert 'Lazy import pkg_resources' in log['2.1.0']
