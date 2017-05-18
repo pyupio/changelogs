@@ -1,5 +1,5 @@
+from __future__ import unicode_literals
 from lxml import etree
-
 
 def get_urls(releases, **kwargs):
     return {
