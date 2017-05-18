@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_docutils():
+    log = changelogs.get("docutils")
+    assert '- New HTML writer generating `HTML 5`_.' in log['0.13.1']
+
+
 def test_jinja2():
     log = changelogs.get("jinja2")
     assert 'Restored the original repr of the internal' in log['2.9.5']
