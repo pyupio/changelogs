@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_twine():
+    log = changelogs.get("twine")
+    assert '* :feature:`106` Upload wheels first to PyPI' in log['1.6.0']
+
+
 def test_pandas():
     log = changelogs.get("pandas")
     assert 'This is a major release from 0.9.1' in log['0.10.0']
