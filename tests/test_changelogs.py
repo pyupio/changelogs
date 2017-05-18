@@ -22,6 +22,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pbr():
+    log = changelogs.get('pbr')
+    assert 'Lazy import pkg_resources' in log['2.1.0']
+    assert 'Update README format to match release notes tool' in log['0.11.0']
+    assert 'Remove pip version specifier' in log['0.8.0']
+
+
 def test_django_storages_redux():
     log = changelogs.get("django-storages-redux")
     print(log.keys())
