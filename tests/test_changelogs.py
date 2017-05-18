@@ -22,6 +22,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_coverage_plugin():
+    log = changelogs.get("django-coverage-plugin")
+    assert 'Removes support for Django versions below 1.8' in log['1.5.0']
+    assert 'No change in code, but Django 1.9.2 is now supported.' in log['1.2.2']
+
+
 def test_cffi():
     log = changelogs.get("cffi")
     assert 'PyObject_Malloc()+memset()' in log['1.10']
