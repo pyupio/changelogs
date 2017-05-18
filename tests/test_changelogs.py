@@ -22,6 +22,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_cffi():
+    log = changelogs.get("cffi")
+    assert 'PyObject_Malloc()+memset()' in log['1.10']
+    assert 'Fix 1.5.1 for Python 2.6.' in log['1.5.2']
+    assert 'Nothing changed from v1.2.0.' in log['1.2.1']
+
+
 def test_alabaster():
     log = changelogs.get("alabaster")
     assert ':bug:`96` ``admonition_xref`` had a template typo' in log['0.7.10']
