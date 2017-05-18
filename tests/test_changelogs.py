@@ -22,6 +22,14 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_numpy():
+    log = changelogs.get("numpy")
+    assert 'numpy.distutils now supports parallel compilation' in log['1.10.0']
+    assert 'Each generalized ufunc has information associated with it' in log['1.3.0']
+    assert 'is printed during numpy.test()' in log['1.7.1']
+    assert 'ssue with fromarrays not using correct format for unicode arrays' in log['1.9.1']
+
+
 def test_whitenoise():
     log = changelogs.get("whitenoise")
     assert 'Handle non-ASCII URLs correctly when using the' in log['3.2.1']
