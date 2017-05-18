@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pep8_naming():
+    log = changelogs.get("pep8-naming")
+    assert '* Fix bug trying to call ``split`` on a list.' in log['0.3.2']
+
+
 def test_twine():
     log = changelogs.get("twine")
     assert '* :feature:`106` Upload wheels first to PyPI' in log['1.6.0']
