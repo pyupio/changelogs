@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pyyaml():
+    log = changelogs.get("pyyaml")
+    assert 'Fixed loss of microsecond precision' in log['3.05']
+
+
 def test_beautifulsoup4():
     log = changelogs.get("beautifulsoup4")
     assert 'Applied patch from Ben Last' in log['1.2']
