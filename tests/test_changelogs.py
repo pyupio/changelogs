@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_factory_boy():
+    log = changelogs.get("factory-boy")
+    assert 'Allow optional forced flush on SQLAlchemy' in log['2.6.1']
+
+
 def test_six():
     log = changelogs.get("six")
     assert 'Improve the performance of' in log['1.10.0']
