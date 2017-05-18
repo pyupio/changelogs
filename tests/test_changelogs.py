@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_jinja2():
+    log = changelogs.get("jinja2")
+    assert 'Restored the original repr of the internal' in log['2.9.5']
+
+
 def test_factory_boy():
     log = changelogs.get("factory-boy")
     assert 'Allow optional forced flush on SQLAlchemy' in log['2.6.1']
