@@ -22,6 +22,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pandas():
+    log = changelogs.get("pandas")
+    assert 'This is a major release from 0.9.1' in log['0.10.0']
+    assert 'Custom business hour offset' in log['0.18.1']
+    assert '`Added <basics.df_join>`' in log['0.5.0']
+
+
 def test_django_coverage_plugin():
     log = changelogs.get("django-coverage-plugin")
     assert 'Removes support for Django versions below 1.8' in log['1.5.0']
