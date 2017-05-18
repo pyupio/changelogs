@@ -22,6 +22,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_storages_redux():
+    log = changelogs.get("django-storages-redux")
+    print(log.keys())
+    assert '* **Breaking:** Remove backends deprecated in v1.5.1' in log['1.6.0']
+
+
 def test_pep8_naming():
     log = changelogs.get("pep8-naming")
     assert '* Fix bug trying to call ``split`` on a list.' in log['0.3.2']
