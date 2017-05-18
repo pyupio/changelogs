@@ -78,7 +78,8 @@ def test_cffi():
 
 def test_alabaster():
     log = changelogs.get("alabaster")
-    assert ':bug:`96` ``admonition_xref`` had a template typo' in log['0.7.10']
+    print(log.keys())
+    assert "Honor Sphinx's core" in log['0.7.5']
 
 
 def test_django_braces():
