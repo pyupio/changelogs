@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_alabaster():
+    log = changelogs.get("alabaster")
+    assert ':bug:`96` ``admonition_xref`` had a template typo' in log['0.7.10']
+
+
 def test_django_braces():
     log = changelogs.get("django-braces")
     assert ':bug:`212 major` Small changes for Django 1.10 compatibility.' in log['1.10.0']
