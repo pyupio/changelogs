@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_six():
+    log = changelogs.get("six")
+    assert 'Improve the performance of' in log['1.10.0']
+
+
 def test_pyyaml():
     log = changelogs.get("pyyaml")
     assert 'Fixed loss of microsecond precision' in log['3.05']
