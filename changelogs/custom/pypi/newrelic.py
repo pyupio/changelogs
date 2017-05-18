@@ -1,5 +1,5 @@
 from lxml import etree
-
+import sys
 
 def get_urls(releases, **kwargs):
     urls = set()
@@ -19,7 +19,9 @@ def get_content(session, urls):
             root = etree.HTML(r.content)
             try:
                 article = root.xpath("//article/div[@class='content']")[0]
-                content = etree.tostring(article, method="text", encoding='utf-8').decode("utf-8")
+                content = etree.tostring(article, method="text", encoding='utf-8')
+                if sys.version_info > (3, 0):
+                    content = content.decode("utf-8")
                 # remove first two lines
                 content = '\n'.join(content.split('\n')[2:-1])
                 log += "# {version}\n{content}\n\n".format(
