@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_lazy_object_proxy():
+    log = changelogs.get("lazy-object-proxy")
+    assert "Fix broken release" in log['1.3.1']
+
+
 def test_newrelic():
     log = changelogs.get("newrelic")
     assert "includes support for Tornado 4.5 as well" in log['2.86.1.66']
