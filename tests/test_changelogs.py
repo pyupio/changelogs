@@ -22,6 +22,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_haystack():
+    log = changelogs.get("django-haystack")
+    assert "Thanks to João Junior" in log['2.6.0']
+    assert "Minimal changes to the example projec" in log['2.4.1']
+
+
 def test_pyotp():
     log = changelogs.get("pyotp")
     assert "Quote issuer QS parameter" in log['2.2.5']
