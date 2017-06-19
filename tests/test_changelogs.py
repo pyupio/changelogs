@@ -22,6 +22,11 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_libsass():
+    log = changelogs.get("libsass")
+    assert "Released on June 7, 2017." in log['0.13.0']
+    assert "Follow up the libsass upstream" in log['0.9.2']
+
 def test_lazy_object_proxy():
     log = changelogs.get("lazy-object-proxy")
     assert "Fix broken release" in log['1.3.1']
