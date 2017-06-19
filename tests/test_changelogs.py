@@ -22,10 +22,17 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_pyotp():
+    log = changelogs.get("pyotp")
+    assert "Quote issuer QS parameter" in log['2.2.5']
+    assert "Fix packaging issue in v2.0.0" in log['2.0.1']
+
+
 def test_libsass():
     log = changelogs.get("libsass")
     assert "Released on June 7, 2017." in log['0.13.0']
     assert "Follow up the libsass upstream" in log['0.9.2']
+
 
 def test_lazy_object_proxy():
     log = changelogs.get("lazy-object-proxy")

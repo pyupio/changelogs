@@ -7,7 +7,8 @@ import shutil
 
 INVALID_LINE_START = frozenset(["-", "*", " ", "\t", "<!--"])
 INVALID_LINE_ENDS = frozenset(["."])
-COMMON_RELEASE_INTRODUCTION = frozenset(["release ", "version ", "new in "])
+COMMON_RELEASE_INTRODUCTION = frozenset(["release ", "version ", "new in ", 'changes in',
+                                         'changes for'])
 
 
 def parse(name, content, releases, get_head_fn):
