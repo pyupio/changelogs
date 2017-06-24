@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
-import os
+import subprocess
+from tempfile import mkdtemp
 import imp
 import requests
 import os
+import re
 from requests import Session
 import logging
 
 logger = logging.getLogger(__name__)
 
-ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",)
+ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",
+                            "get_content")
+
+GITHUB_API_TOKEN = os.environ.get("CHANGELOGS_GITHUB_API_TOKEN", False)
 
 
 def _load_custom_functions(vendor, name):
@@ -20,7 +25,9 @@ def _load_custom_functions(vendor, name):
     :return: dict, functions
     """
     functions = {}
-    filename = "{}.py".format(name)
+    # Some packages have dash in their name, replace them with underscore
+    # E.g. python-ldap to python_ldap
+    filename = "{}.py".format(name.replace("-", "_").lower())
     path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),  # current working dir
         "custom",  # /dir/parser
@@ -28,7 +35,7 @@ def _load_custom_functions(vendor, name):
         filename  # /dir/parser/pypi/django.py
     )
     if os.path.isfile(path):
-        module_name = "{parser}.{vendor}.{name}"
+        module_name = "parser.{vendor}.{name}".format(vendor=vendor, name=name)
         module = imp.load_source(module_name, path)
         functions = dict(
             (function, getattr(module, function, None)) for function in ALLOWED_CUSTOM_FUNCTIONS
@@ -80,6 +87,16 @@ def _bootstrap_functions(name, vendor, functions):
             "get_releases": rubygems.get_releases,
             "get_urls": rubygems.get_urls,
         })
+    elif vendor == "launchpad":
+        from . import launchpad
+        fns.update({
+            "get_metadata": launchpad.get_metadata,
+            "get_releases": launchpad.get_releases,
+            "get_urls": launchpad.get_urls,
+            "find_changelogs": launchpad.find_changelogs,
+            "get_content": launchpad.get_content,
+            "parse": launchpad.parse
+        })
 
     # load custom functions for special packages lying in custom/{vendor}/{package}.py
     custom_fns = _load_custom_functions(vendor=vendor, name=name)
@@ -90,7 +107,46 @@ def _bootstrap_functions(name, vendor, functions):
     return fns
 
 
-def get(name, vendor="pypi", functions={}):
+def check_for_launchpad(old_vendor, name, urls):
+    """Check if the project is hosted on launchpad.
+
+    :param name: str, name of the project
+    :param urls: set, urls to check.
+    :return: the name of the project on launchpad, or an empty string.
+    """
+    if old_vendor != "pypi":
+        # XXX This might work for other starting vendors
+        # XXX but I didn't check. For now only allow
+        # XXX pypi -> launchpad.
+        return ''
+
+    for url in urls:
+        try:
+            return re.match(r"https?://launchpad.net/([\w.\-]+)",
+                            url).groups()[0]
+        except AttributeError:
+            continue
+    return ''
+
+
+def check_switch_vendor(old_vendor, name, urls, _depth=0):
+    """Check if the project should switch vendors. E.g
+    project pushed on pypi, but changelog on launchpad.
+
+    :param name: str, name of the project
+    :param urls: set, urls to check.
+    :return: tuple, (str(new vendor name), str(new project name))
+    """
+    if _depth > 3:
+        # Protect against recursive things vendors here.
+        return ""
+    new_name = check_for_launchpad(old_vendor, name, urls)
+    if new_name:
+        return "launchpad", new_name
+    return "", ""
+
+
+def get(name, vendor="pypi", functions={}, _depth=0):
     """
     Tries to find a changelog for the given package.
     :param name: str, package name
@@ -120,7 +176,41 @@ def get(name, vendor="pypi", functions={}):
         releases=releases,
         get_head_fn=fns["get_head"]
     )
-    return changelog
+    del fns
+    if changelog:
+        return changelog
+
+    # We could not find any changelogs.
+    # Check to see if we can switch vendors.
+    new_vendor, new_name = check_switch_vendor(vendor, name, repos,
+                                               _depth=_depth)
+    if new_vendor and new_vendor != vendor:
+        return get(new_name, vendor=new_vendor, functions=functions,
+                   _depth=_depth+1)
+    return {}
+
+
+def get_commit_log(name, vendor='pypi', functions={}, _depth=0):
+    """
+    Tries to parse a changelog from the raw commit log.
+    :param name: str, package name
+    :param vendor: str, vendor
+    :param functions: dict, custom functions
+    :return: tuple, (dict -> commit log, str -> raw git log)
+    """
+    if "find_changelogs" not in functions:
+        from .finder import find_git_repo
+        functions["find_changelogs"] = find_git_repo
+    if "get_content" not in functions:
+        functions["get_content"] = clone_repo
+    if "parse" not in functions:
+        from .parser import parse_commit_log
+        functions["parse"] = parse_commit_log
+    return get(
+        name=name,
+        vendor=vendor,
+        functions=functions
+    )
 
 
 def get_content(session, urls):
@@ -134,10 +224,39 @@ def get_content(session, urls):
     content = ""
     for url in urls:
         try:
-            resp = session.get(url)
-            logger.info("GET changelog from {url}".format(url=url))
-            if resp.status_code == 200:
-                content += "\n\n" + resp.text
+            logger.debug("GET changelog from {url}".format(url=url))
+            if "https://api.github.com" in url and url.endswith("releases"):
+                # this is a github API release page, fetch it if token is set
+                if not GITHUB_API_TOKEN:
+                    logger.warning("Fetching release pages requires CHANGELOGS_GITHUB_API_TOKEN "
+                                   "to be set")
+                    continue
+                resp = session.get(url, headers={
+                    "Authorization": "token {}".format(GITHUB_API_TOKEN)
+                })
+                if resp.status_code == 200:
+                    for item in resp.json():
+                        content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+            else:
+                resp = session.get(url)
+                if resp.status_code == 200:
+                    content += "\n\n" + resp.text
         except requests.ConnectionError:
             pass
     return content
+
+
+def clone_repo(session, urls):
+    """
+    Clones the given repos in temp directories
+    :param session: requests Session instance
+    :param urls: list, str URLs
+    :return: tuple, (str -> directory, str -> URL)
+    """
+    repos = []
+    for url in urls:
+        dir = mkdtemp()
+        call = ["git", "clone", url, dir]
+        subprocess.call(call)
+        repos.append((dir, url))
+    return repos

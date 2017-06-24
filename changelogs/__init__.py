@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 from requests import Session
-from .changelogs import get
+from .changelogs import get, get_commit_log
 
 """
 if os.environ.get("DEBUG", "") in ("TRUE", "True", "true"):
@@ -14,4 +15,7 @@ else:
 
 __author__ = """Jannis Gebauer"""
 __email__ = 'jay@pyup.io'
-__version__ = '0.6.1'
+__version__ = '0.12.0'
+
+
+url_re = re.compile(r"(https?://[^\s<>\"'\x7f-\xff]+)", re.IGNORECASE)

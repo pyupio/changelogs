@@ -14,15 +14,24 @@ def main():
     parser.add_argument("vendor", help="vendor (pypi, npm, gem)", default="pypi", nargs='?')
     parser.add_argument("-v", "--verbose", help="increase output verbosity",
                         action="store_true")
+    parser.add_argument("-c", "--commits", help="",
+                        action="store_true")
 
     args = parser.parse_args()
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    data = changelogs.get(args.package, vendor=args.vendor)
+    if args.commits:
+        data, raw_log = changelogs.get_commit_log(args.package, vendor=args.vendor)
+    else:
+        data = changelogs.get(args.package, vendor=args.vendor)
+
     for release in sorted(data.keys(), key=lambda v: parse(v), reverse=True):
         print(release)
         print(data[release])
+
+    if not data and args.commits:
+        print(raw_log)
 
 
 if __name__ == "__main__":

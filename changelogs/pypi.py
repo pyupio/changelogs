@@ -2,6 +2,8 @@
 from __future__ import absolute_import, print_function, unicode_literals
 from packaging.version import parse
 
+import changelogs
+
 
 def get_metadata(session, name):
     """
@@ -57,5 +59,10 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
             name=name,
             latest_release=next(iter(get_releases(data)))
         ))
+        # Check the download URL as well.
+        if "download_url" in data:
+            candidates.append(data["download_url"])
+        if data['info']['description']:
+            candidates.extend(changelogs.url_re.findall(data["info"]["description"]))
         return find_changelogs_fn(session=session, name=name, candidates=candidates)
     return set(), set()

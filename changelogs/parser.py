@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 import re
 from packaging.version import Version, InvalidVersion
+from gitchangelog.gitchangelog import changelog, GitRepos
+import subprocess
+import shutil
 
 INVALID_LINE_START = frozenset(["-", "*", " ", "\t", "<!--"])
 INVALID_LINE_ENDS = frozenset(["."])
-COMMON_RELEASE_INTRODUCTION = frozenset(["release ", "version ", "new in "])
+COMMON_RELEASE_INTRODUCTION = frozenset(["release ", "version ", "new in ", 'changes in',
+                                         'changes for'])
 
 
 def parse(name, content, releases, get_head_fn):
@@ -78,11 +82,9 @@ def get_head(name, line, releases):
     for intro in COMMON_RELEASE_INTRODUCTION:
         if uncluttered.startswith(intro):
             uncluttered = uncluttered.replace(intro, "")
-
     # some projects use the project name as a prefix, remove it
     uncluttered_name = re.sub("[^0123456789. a-zA-Z]", "", name).strip().lower()
     uncluttered = uncluttered.replace(uncluttered_name, "").strip()
-
     # now that all the clutter is removed, the line should be relatively short. If this is a valid
     # head the only thing left should be the version and possibly some datestamp. We are going
     # to count the length and assume a length of 8 for the version part, 8 for the datestamp and
@@ -93,10 +95,17 @@ def get_head(name, line, releases):
     # split the line in parts and sort these parts by "." count in reversed order. This turns a
     # line like "12 12 2016 v2.0.3 into ['v2.0.3', "12", "12", "2016"]
     parts = uncluttered.split(" ")
+
+    # if a line contains more than 6 parts, it's unlikely that this is a valid head
+    if len(parts) >= 8:
+        # nevertheless: if there's a '.' in one of the first three items, we might be able to
+        # find a valid head here.
+        if not ("." in parts[0] or "." in parts[1] or "." in parts[2]):
+            return False
+
     if len(parts) > 1:
         parts = parts[::len(parts)-1]
-        parts.sort(key=lambda s: s.count("."), reverse=True)
-
+        parts.sort(key=lambda s: "." in s, reverse=True)
     # loop over all our parts an find a parseable version
     for part in parts:
         # remove the "v" prefix as it is not parseable
@@ -112,3 +121,24 @@ def get_head(name, line, releases):
         except InvalidVersion as e:
             pass
     return False
+
+
+def parse_commit_log(name, content, releases, get_head_fn):
+    """
+    Parses the given commit log
+    :param name: str, package name
+    :param content: list, directory paths
+    :param releases: list, releases
+    :param get_head_fn: function
+    :return: dict, changelog
+    """
+    log = ""
+    raw_log = ""
+    for path, _ in content:
+        log += "\n".join(changelog(repository=GitRepos(path), tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
+        raw_log += "\n" + subprocess.check_output(
+            ["git", "-C", path, "--no-pager", "log", "--decorate"]).decode("utf-8")
+        shutil.rmtree(path)
+    log = parse(name, log, releases, get_head_fn)
+
+    return log, raw_log

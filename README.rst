@@ -12,7 +12,7 @@
      :target: https://pyup.io/repos/github/pyupio/changelogs/
      :alt: Updates
 
-A changelog finder and parser with command line interface for packages available on pypi, npm and rubygems. Originally developed for pyup.io_.
+A changelog finder and parser with command line interface for packages available on pypi, npm, rubygems and launchpad.net. Originally developed for pyup.io_.
 
 .. _pyup.io: https://pyup.io/
 
