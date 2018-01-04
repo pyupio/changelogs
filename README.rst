@@ -63,7 +63,7 @@ When trying to get a changelog for a given package, there are a bunch of problem
 
 This project is trying to solve this by:
 
-- first querying the package vendor for package meta data like the homapage or docs URL.
+- first querying the package vendor for package meta data like the homepage or docs URL.
 - if the meta data doesn't contain a valid URL to a repo, visit all available URLs and scrape them to find one.
 - if there is a valid repo URL, visit the repo and look for possible changelogs like `Changes.txt`, `NEWS.md` or `history.rst`.
 - fetch the content and somewhat try to parse it.
