@@ -22,6 +22,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_robozilla():
+    log = changelogs.get("robozilla")
+    assert "HOTFIXES" in log['0.2.6']
+    assert "Added decorator for pytest parametrized tests" in log['0.2.0']
+
+
 def test_websocket_client():
     log = changelogs.get("websocket-client")
     print(log.keys())
