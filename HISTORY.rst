@@ -5,6 +5,18 @@ History
 UNRELEASED
 ------------------
 
+0.13.0 (2018-01-9)
+-------------------
+* Added a bunch of custom parser:
+ - robozilla
+ - websocket-client
+ - pep8-naming
+ - py-trello
+ - synapse
+ - django-haystack
+ - libsass
+ - lazy-object-proxy
+
 0.12.0 (2017-05-18)
 -------------------
 * Added a bunch of custom parser:
