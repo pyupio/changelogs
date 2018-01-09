@@ -22,6 +22,13 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_websocket_client():
+    log = changelogs.get("websocket-client")
+    print(log.keys())
+    assert "Shuffled around example code" in log['0.39.0']
+    assert "allow override of match_hostname usage on ssl" in log['0.18.0']
+
+
 def test_py_trello():
     log = changelogs.get("py-trello")
     print(log.keys())
