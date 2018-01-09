@@ -3007,6 +3007,17 @@ def test_silva_core_conf():
     assert "* Use ``ISilvaNameCh" in log["3.0"]
 
 
+def test_synapse():
+    log = changelogs.get("synapse")
+    assert "Bugs" in log["0.0.36"]
+    assert "New Features" in log["0.0.36"]
+    assert "Enhancements" in log["0.0.36"]
+    assert "Documentation" in log["0.0.36"]
+    # Assert wrong repository data is not present
+    txt = log.get("0.46.2")
+    if txt:
+        assert "prelimiary support for openMP in compute_asm atoms" not in txt
+
 def test_ticketus():
     log = changelogs.get("ticketus")
     assert "* Import scripts for" in log["0.5beta"]
