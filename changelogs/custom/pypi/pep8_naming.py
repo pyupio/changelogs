@@ -1,6 +1,6 @@
 def get_urls(releases, **kwargs):
     return {
-        'https://raw.githubusercontent.com/PyCQA/pep8-naming/master/README.rst'
+        'https://raw.githubusercontent.com/PyCQA/pep8-naming/master/CHANGELOG.rst'
     }, set()
 
 
