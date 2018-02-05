@@ -7,3 +7,4 @@ django-registration: https://raw.githubusercontent.com/macropin/django-registrat
 django-hijack: https://raw.githubusercontent.com/arteria/django-hijack/master/CHANGELOG.txt
 plotnine: https://plotnine.readthedocs.io/en/stable/_sources/changelog.rst.txt
 cx_oracle: https://raw.githubusercontent.com/oracle/python-cx_Oracle/master/doc/src/releasenotes.rst
+python-social-auth: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
