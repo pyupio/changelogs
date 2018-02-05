@@ -1,2 +1,3 @@
 django-registration-redux: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
 appenlight-client: https://raw.githubusercontent.com/AppEnlight/appenlight-client-python/master/CHANGELOG
+python-memcached: https://raw.githubusercontent.com/linsomniac/python-memcached/master/ChangeLog
