@@ -8,3 +8,4 @@ django-hijack: https://raw.githubusercontent.com/arteria/django-hijack/master/CH
 plotnine: https://plotnine.readthedocs.io/en/stable/_sources/changelog.rst.txt
 cx_oracle: https://raw.githubusercontent.com/oracle/python-cx_Oracle/master/doc/src/releasenotes.rst
 python-social-core: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
+cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
