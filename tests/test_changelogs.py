@@ -22,6 +22,12 @@ def record(monkeypatch, betamax_session):
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
 
+def test_django_registration_redux():
+    log = changelogs.get("django-registration-redux")
+    print(log)
+    assert "instance and a boolean" in log['1.9']
+
+
 def test_robozilla():
     log = changelogs.get("robozilla")
     assert "HOTFIXES" in log['0.2.6']

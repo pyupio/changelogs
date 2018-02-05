@@ -1,0 +1,1 @@
+django-registration-redux: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
