@@ -3,3 +3,5 @@ appenlight-client: https://raw.githubusercontent.com/AppEnlight/appenlight-clien
 python-memcached: https://raw.githubusercontent.com/linsomniac/python-memcached/master/ChangeLog
 gitpython: https://raw.githubusercontent.com/gitpython-developers/GitPython/master/doc/source/changes.rst
 pyinvoke: https://raw.githubusercontent.com/pyinvoke/invoke/master/sites/www/changelog.rst
+django-registration: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
+django-hijack: https://raw.githubusercontent.com/arteria/django-hijack/master/CHANGELOG.txt
