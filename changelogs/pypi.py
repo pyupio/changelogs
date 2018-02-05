@@ -61,9 +61,9 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     """
     # check if there's a changelog in ../custom/pypi/map.txt
     map = get_url_map()
-    if name in map:
-        logger.info("Package {name}'s URL is in pypi/map.txt, returning")
-        return [map[name]], set()
+    if name.lower().replace("_", "-") in map:
+        logger.info("Package {name}'s URL is in pypi/map.txt, returning".format(name=name))
+        return [map[name.lower().replace("_", "-")]], set()
     # if this package has valid meta data, build up a list of URL candidates we can possibly
     # search for changelogs on
     if "info" in data:
