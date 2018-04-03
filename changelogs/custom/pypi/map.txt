@@ -10,3 +10,4 @@ cx-oracle: https://raw.githubusercontent.com/oracle/python-cx_Oracle/master/doc/
 python-social-core: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
 cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHANGELOG
+datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md
