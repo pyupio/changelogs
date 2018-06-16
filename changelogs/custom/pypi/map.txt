@@ -12,3 +12,4 @@ cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swag
 pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHANGELOG
 datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md
 nbdime: https://raw.githubusercontent.com/jupyter/nbdime/master/docs/source/changelog.md
+sphinx_rtd_theme: https://raw.githubusercontent.com/rtfd/sphinx_rtd_theme/master/docs/changelog.rst
