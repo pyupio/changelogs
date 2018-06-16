@@ -13,3 +13,4 @@ pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHAN
 datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md
 nbdime: https://raw.githubusercontent.com/jupyter/nbdime/master/docs/source/changelog.md
 sphinx_rtd_theme: https://raw.githubusercontent.com/rtfd/sphinx_rtd_theme/master/docs/changelog.rst
+pinax-stripe: https://raw.githubusercontent.com/pinax/pinax-stripe/master/docs/about/release-notes.md
