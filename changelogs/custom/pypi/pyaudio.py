@@ -29,7 +29,7 @@ def parse(name, content, releases, get_head_fn):
         if line.strip().startswith("PyAudio"):
             try:
                 head = line.strip().split()[1]
-            except:
+            except Exception:
                 continue
             changelog[head] = date_line + "\n"
             continue

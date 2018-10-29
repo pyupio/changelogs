@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
 import re
-from requests import Session
-from .changelogs import get, get_commit_log
+from .changelogs import get, get_commit_log  # noqa: F401
 
 """
 if os.environ.get("DEBUG", "") in ("TRUE", "True", "true"):

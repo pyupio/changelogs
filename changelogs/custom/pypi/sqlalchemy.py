@@ -10,6 +10,7 @@ def get_urls(releases, **kwargs):
     log_names = set(["".join(r.split('.')[:2]) for r in releases if "beta" not in r])
     # sort urls to make them compatible for testing
     urls = sorted([
-        "https://raw.githubusercontent.com/zzzeek/sqlalchemy/master/doc/build/changelog/changelog_{}.rst".format(v) for v in log_names
+        ("https://raw.githubusercontent.com/zzzeek/sqlalchemy/master/doc/build/changelog/" +
+         "changelog_{}.rst").format(v) for v in log_names
     ])
     return urls, set()

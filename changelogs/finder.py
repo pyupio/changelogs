@@ -85,14 +85,15 @@ def find_repo_urls(session, name, candidates):
                                     logger.debug("Found repo URL {}".format(link))
                                     yield link
             except ConnectionError:
-                # we really don't care about connection errors here. a lot of project pages are simply
-                # down because the project is no longer maintained
+                # we really don't care about connection errors here.
+                # A lot of project pages are simply down because the project is no longer maintained
                 pass
             except etree.XMLSyntaxError:
                 # unable to parse HTML
                 pass
             except UnicodeEncodeError:
                 pass
+
 
 # changelogs come in all forms and colors. This set contains most of them, e.g. (HISTORY, history,
 # History.md, HISTORY.rst ... etc.)
@@ -139,9 +140,11 @@ def find_changelog(session, repo_url, deep=True):
                 if link.endswith(candidate):
                     if "github.com" in repo_url and "blob" in link:
                         link = link.replace(repo_url, "")
-                        match = validate_url("https://raw.githubusercontent.com" + link.replace("/blob/", "/"))
+                        match = validate_url("https://raw.githubusercontent.com" +
+                                             link.replace("/blob/", "/"))
                     elif "bitbucket.org" in repo_url and "src" in link:
-                        match = validate_url("https://bitbucket.org" + link.replace("/src/", "/raw/"))
+                        match = validate_url("https://bitbucket.org" +
+                                             link.replace("/src/", "/raw/"))
                     elif "sourceforge.net" in repo_url:
                         match = validate_url(repo_url + link + "?format=raw")
                     if match:
