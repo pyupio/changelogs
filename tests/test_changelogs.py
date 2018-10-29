@@ -3164,6 +3164,12 @@ def test_timecodes():
     assert "- Initial release." in log["0.0.1"]
 
 
+def test_tox():
+    log = changelogs.get("tox")
+    assert "- Fix bug with incorrectly defactorized dependencies" in log["3.5.3"]
+    assert "- level three verbosity (``-vvv``) show the packaging output" in log["3.5.2"]
+
+
 def test_xlsx_streaming():
     log = changelogs.get("xlsx_streaming")
     assert "* First public versi" in log["0.1.0"]
