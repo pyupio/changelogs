@@ -69,6 +69,7 @@ Ready to contribute? Here's how to set up `changelogs` for local development.
     $ mkvirtualenv changelogs
     $ cd changelogs/
     $ python setup.py develop
+    $ pip install -r requirements_dev.txt
 
 4. Create a branch for local development::
 
@@ -81,8 +82,6 @@ Ready to contribute? Here's how to set up `changelogs` for local development.
     $ flake8 changelogs tests
     $ python setup.py test or py.test
     $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
