@@ -4,6 +4,7 @@ import changelogs
 from packaging.version import parse
 import argparse
 import logging
+import pydoc
 
 
 def main():
@@ -26,12 +27,18 @@ def main():
     else:
         data = changelogs.get(args.package, vendor=args.vendor)
 
-    for release in sorted(data.keys(), key=lambda v: parse(v), reverse=True):
-        print(release)
-        print(data[release])
+    if data:
+        out = "".join(
+            release + "\n" + data[release] + "\n"
+            for release in sorted(data.keys(),
+                                  key=lambda v: parse(v), reverse=True))
+    elif args.commits:
+        out = raw_log
+    else:
+        out = None
 
-    if not data and args.commits:
-        print(raw_log)
+    if out is not None:
+        pydoc.pager(out)
 
 
 if __name__ == "__main__":
