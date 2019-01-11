@@ -8,7 +8,7 @@ import logging
 
 def main():
     parser = argparse.ArgumentParser(
-        description='bla'
+        description='A changelog finder and parser for packages available on pypi, npm and rubygems.'
     )
     parser.add_argument("package", help="package name")
     parser.add_argument("vendor", help="vendor (pypi, npm, gem)", default="pypi", nargs='?')
