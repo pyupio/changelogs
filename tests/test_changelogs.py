@@ -2845,6 +2845,14 @@ def test_qt_binder():
     assert "Features" in log["0.2"]
 
 
+def test_sentry_sdk():
+    log = changelogs.get("sentry-sdk")
+    assert "Fix `UnboundLocalErr" in log["0.7.1"]
+    assert "Fix `celery.exceptio" in log["0.7.2"]
+    assert "Fix crash in AIOHTTP" in log["0.7.3"]
+    assert "Flask integration no" in log["0.7.3"]
+
+
 def test_sijax():
     log = changelogs.get("sijax")
     assert "Huge reorganization " in log["0.2.0"]

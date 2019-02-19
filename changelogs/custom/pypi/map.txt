@@ -11,3 +11,4 @@ python-social-core: https://raw.githubusercontent.com/python-social-auth/social-
 cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHANGELOG
 datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md
+sentry-sdk: https://raw.githubusercontent.com/getsentry/sentry-python/master/CHANGES.md
