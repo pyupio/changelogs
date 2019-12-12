@@ -23,6 +23,7 @@ def parse(name, content, releases, get_head_fn):
     changelog = {}
     releases = frozenset(releases)
     head = False
+    regex = re.compile(r"\n\s?(#+)|^\s?(#+)") # Remove all header syntax # characters from .md and .rst formats for readability
     for line in content.splitlines():
         new_head = get_head_fn(name=name, line=line, releases=releases)
         if new_head:
@@ -32,7 +33,7 @@ def parse(name, content, releases, get_head_fn):
         if not head:
             continue
         line = line.replace("@", "")
-        line = line.replace("#", "")
+        line = regex.sub("", line)
         changelog[head] += line + "\n"
     return changelog
 
