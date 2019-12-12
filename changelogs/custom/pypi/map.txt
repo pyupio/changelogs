@@ -1,0 +1,13 @@
+django-registration-redux: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
+appenlight-client: https://raw.githubusercontent.com/AppEnlight/appenlight-client-python/master/CHANGELOG
+python-memcached: https://raw.githubusercontent.com/linsomniac/python-memcached/master/ChangeLog
+gitpython: https://raw.githubusercontent.com/gitpython-developers/GitPython/master/doc/source/changes.rst
+pyinvoke: https://raw.githubusercontent.com/pyinvoke/invoke/master/sites/www/changelog.rst
+django-registration: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
+django-hijack: https://raw.githubusercontent.com/arteria/django-hijack/master/CHANGELOG.txt
+plotnine: https://plotnine.readthedocs.io/en/stable/_sources/changelog.rst.txt
+cx-oracle: https://raw.githubusercontent.com/oracle/python-cx_Oracle/master/doc/src/releasenotes.rst
+python-social-core: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
+cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
+pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHANGELOG
+datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md

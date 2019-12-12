@@ -5,6 +5,34 @@ History
 UNRELEASED
 ------------------
 
+0.14.0 (2018-01-9)
+-------------------
+* Added a pypi/map.txt file to add custom URLS more easily
+* Added a bunch of custom URLS:
+  - pytest-flake8
+  - cornice.ext.swagger
+  - python-social-core
+  - python-social-auth
+  - cx-oracle
+  - plotnine
+  - django-hijack
+  - pyinvoke
+  - gitpython
+  - python-memcached
+  - appenlight-client
+
+0.13.0 (2018-01-9)
+-------------------
+* Added a bunch of custom parser:
+ - robozilla
+ - websocket-client
+ - pep8-naming
+ - py-trello
+ - synapse
+ - django-haystack
+ - libsass
+ - lazy-object-proxy
+
 0.12.0 (2017-05-18)
 -------------------
 * Added a bunch of custom parser:

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 from packaging.version import parse
-
 import changelogs
+import os
+import logging
 
+logger = logging.getLogger(__name__)
 
 def get_metadata(session, name):
     """
@@ -29,6 +31,25 @@ def get_releases(data, **kwargs):
     return []
 
 
+def get_url_map():
+    """
+    Loads custom/pypi/map.txt and builds a dict where map[package_name] = url
+    :return: dict, urls
+    """
+    map = {}
+    path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),  # current working dir ../
+        "custom",  # ../custom/
+        "pypi",  # ../custom/pypi/
+        "map.txt"  # ../custom/pypi/map.txt
+    )
+    with open(path) as f:
+        for line in f.readlines():
+            package, url = line.strip().split(": ")
+            map[package] = url
+    return map
+
+
 def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     """
     Gets URLs to changelogs.
@@ -38,6 +59,11 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     :param find_changelogs_fn: function, find_changelogs
     :return: tuple, (set(changelog URLs), set(repo URLs))
     """
+    # check if there's a changelog in ../custom/pypi/map.txt
+    map = get_url_map()
+    if name.lower().replace("_", "-") in map:
+        logger.info("Package {name}'s URL is in pypi/map.txt, returning".format(name=name))
+        return [map[name.lower().replace("_", "-")]], set()
     # if this package has valid meta data, build up a list of URL candidates we can possibly
     # search for changelogs on
     if "info" in data:
