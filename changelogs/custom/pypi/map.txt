@@ -11,3 +11,15 @@ python-social-core: https://raw.githubusercontent.com/python-social-auth/social-
 cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 pytest-flake8: https://raw.githubusercontent.com/tholo/pytest-flake8/master/CHANGELOG
 datadog: https://raw.githubusercontent.com/DataDog/datadogpy/master/CHANGELOG.md
+ampache: https://api.github.com/repos/ampache/python3-ampache/releases
+monero: https://monero-python.readthedocs.io/en/latest/_sources/release_notes.rst.txt
+apache-superset: https://raw.githubusercontent.com/apache/incubator-superset/master/CHANGELOG.md
+apollo: https://api.github.com/repos/galaxy-genome-annotation/python-apollo/releases
+archi: https://api.github.com/repos/whtsky/archi/releases
+homeassistant: https://api.github.com/repos/home-assistant/core/releases
+osc: https://raw.githubusercontent.com/openSUSE/osc/master/NEWS
+zulip: https://github.com/zulip/python-zulip-api/blob/master/zulip/CHANGELOG.md
+tuf: https://raw.githubusercontent.com/theupdateframework/tuf/develop/docs/CHANGELOG.md
+raiden: https://raw.githubusercontent.com/raiden-network/raiden/develop/docs/changelog.rst
+scalelite: https://api.github.com/repos/alexsanderp/scalelite-python-wrapper/releases
+python-semantic-release: https://github.com/relekang/python-semantic-release/blob/master/CHANGELOG.md
