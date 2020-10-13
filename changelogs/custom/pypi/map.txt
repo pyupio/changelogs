@@ -1,7 +1,7 @@
 ampache: https://api.github.com/repos/ampache/python3-ampache/releases
 apache-superset: https://raw.githubusercontent.com/apache/incubator-superset/master/CHANGELOG.md
 apollo: https://api.github.com/repos/galaxy-genome-annotation/python-apollo/releases
-archi: https://api.github.com/repos/whtsky/archi/releases
+archi: https://raw.githubusercontent.com/whtsky/archi/master/README.md
 cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 django-easy-select2: https://raw.githubusercontent.com/asyncee/django-easy-select2/master/docs/source/changelog.rst
 django-redis-cache: https://raw.githubusercontent.com/sebleier/django-redis-cache/master/README.rst
@@ -40,4 +40,4 @@ sphinxcontrib-napoleon: https://raw.githubusercontent.com/sphinx-contrib/napoleo
 sqlalchemy-json: https://raw.githubusercontent.com/edelooff/sqlalchemy-json/master/README.rst
 tox: https://raw.githubusercontent.com/tox-dev/tox/master/docs/changelog.rst
 tuf: https://raw.githubusercontent.com/theupdateframework/tuf/develop/docs/CHANGELOG.md
-zulip: https://github.com/zulip/python-zulip-api/blob/master/zulip/CHANGELOG.md
+zulip: https://raw.githubusercontent.com/zulip/python-zulip-api/master/zulip/CHANGELOG.md
