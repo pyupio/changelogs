@@ -35,7 +35,7 @@ pyzmq: https://raw.githubusercontent.com/zeromq/pyzmq/master/docs/source/changel
 raiden: https://raw.githubusercontent.com/raiden-network/raiden/develop/docs/changelog.rst
 scalelite: https://api.github.com/repos/alexsanderp/scalelite-python-wrapper/releases
 sentry-sdk: https://raw.githubusercontent.com/getsentry/sentry-python/master/CHANGES.md
-sphinx_rtd_theme: https://raw.githubusercontent.com/rtfd/sphinx_rtd_theme/master/docs/changelog.rst
+sphinx-rtd-theme: https://raw.githubusercontent.com/rtfd/sphinx_rtd_theme/master/docs/changelog.rst
 sphinxcontrib-napoleon: https://raw.githubusercontent.com/sphinx-contrib/napoleon/master/CHANGES
 sqlalchemy-json: https://raw.githubusercontent.com/edelooff/sqlalchemy-json/master/README.rst
 tox: https://raw.githubusercontent.com/tox-dev/tox/master/docs/changelog.rst
