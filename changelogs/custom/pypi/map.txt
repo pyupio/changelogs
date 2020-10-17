@@ -2,7 +2,7 @@ ampache: https://api.github.com/repos/ampache/python3-ampache/releases
 apache-superset: https://raw.githubusercontent.com/apache/incubator-superset/master/CHANGELOG.md
 apollo: https://api.github.com/repos/galaxy-genome-annotation/python-apollo/releases
 archi: https://raw.githubusercontent.com/whtsky/archi/master/README.md
-cornice.ext.swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
+cornice-swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 django-easy-select2: https://raw.githubusercontent.com/asyncee/django-easy-select2/master/docs/source/changelog.rst
 django-redis-cache: https://raw.githubusercontent.com/sebleier/django-redis-cache/master/README.rst
 django-rest-framework: https://raw.githubusercontent.com/encode/django-rest-framework/master/docs/community/release-notes.md
@@ -28,7 +28,7 @@ phonenumbers: https://raw.githubusercontent.com/google/libphonenumber/master/rel
 pinax-stripe: https://raw.githubusercontent.com/pinax/pinax-stripe/master/docs/about/release-notes.md
 pytest: https://raw.githubusercontent.com/pytest-dev/pytest/master/doc/en/changelog.rst
 python-memcached: https://raw.githubusercontent.com/linsomniac/python-memcached/master/ChangeLog
-python-social-core: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
+python-social-auth: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
 pytz: https://raw.githubusercontent.com/stub42/pytz/master/tz/NEWS
 pyyaml: https://raw.githubusercontent.com/yaml/pyyaml/master/CHANGES
 pyzmq: https://raw.githubusercontent.com/zeromq/pyzmq/master/docs/source/changelog.rst
