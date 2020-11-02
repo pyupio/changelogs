@@ -11,9 +11,9 @@ else:
     DEBUG = False
 """
 
-__author__ = """Jannis Gebauer"""
-__email__ = 'jay@pyup.io'
-__version__ = '0.14.0'
+__author__ = """pyup.io"""
+__email__ = 'support@pyup.io'
+__version__ = '0.15.0-dev'
 
 
 url_re = re.compile(r"(https?://[^\s<>\"'\x7f-\xff]+)", re.IGNORECASE)

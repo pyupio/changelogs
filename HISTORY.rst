@@ -2,8 +2,13 @@
 History
 =======
 
-UNRELEASED
-------------------
+0.15.0-dev (UNRELEASED)
+-----------------------
+* Removed support for Python 2.7, 3.4 and 3.5
+* Getting proper changelogs for beautifulsoup4 PyPi package again
+* Getting proper changelogs for synapse PyPi package again
+* Stopped using bumpversion
+* Updated PyPi map.txt to reflect different packages changelogs location changes
 
 0.14.0 (2018-01-9)
 -------------------
