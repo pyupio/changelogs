@@ -1,4 +1,3 @@
-import pytest
 from changelogs.finder import contains_project_name
 
 
