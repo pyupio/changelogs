@@ -16,6 +16,7 @@ hypothesis: https://raw.githubusercontent.com/HypothesisWorks/hypothesis/master/
 importlib-metadata: https://gitlab.com/python-devs/importlib_metadata/-/raw/master/docs/changelog.rst
 jinja: https://raw.githubusercontent.com/pallets/jinja/master/CHANGES.rst
 json-e: https://raw.githubusercontent.com/taskcluster/json-e/master/CHANGELOG.rst
+kiwisolver: https://raw.githubusercontent.com/nucleic/kiwi/master/releasenotes.rst
 kombu: https://raw.githubusercontent.com/celery/kombu/master/Changelog.rst
 monero: https://monero-python.readthedocs.io/en/latest/_sources/release_notes.rst.txt
 more-itertools: https://raw.githubusercontent.com/more-itertools/more-itertools/master/docs/versions.rst
