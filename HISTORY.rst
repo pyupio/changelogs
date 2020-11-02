@@ -8,6 +8,7 @@ History
 * Getting proper changelogs for beautifulsoup4 PyPi package again
 * Getting proper changelogs for synapse PyPi package again
 * Stopped using bumpversion
+* Updated PyPi map.txt to reflect different packages changelogs location changes
 
 0.14.0 (2018-01-9)
 -------------------
