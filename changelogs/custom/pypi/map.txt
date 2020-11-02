@@ -5,6 +5,7 @@ archi: https://raw.githubusercontent.com/whtsky/archi/master/README.md
 cornice-swagger: https://raw.githubusercontent.com/Cornices/cornice.ext.swagger/master/CHANGES.rst
 django-easy-select2: https://raw.githubusercontent.com/asyncee/django-easy-select2/master/docs/source/changelog.rst
 django-redis-cache: https://raw.githubusercontent.com/sebleier/django-redis-cache/master/README.rst
+django-registration-redux: https://raw.githubusercontent.com/macropin/django-registration/master/CHANGELOG
 django-rest-framework: https://raw.githubusercontent.com/encode/django-rest-framework/master/docs/community/release-notes.md
 fritzconnection: https://raw.githubusercontent.com/kbr/fritzconnection/master/docs/sources/changes.rst
 future: https://raw.githubusercontent.com/PythonCharmers/python-future/master/docs/whatsnew.rst
