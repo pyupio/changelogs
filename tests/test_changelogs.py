@@ -2520,8 +2520,10 @@ def test_playerdo():
     assert "* Fixed incorrect us" in log["0.5.2"]
 
 
-# def test_playerpiano():
-#     log = changelogs.get("playerpiano")
+# TODO: https://github.com/pyupio/changelogs/issues/228
+def test_playerpiano():
+    log = changelogs.get("playerpiano")
+    assert "0.2" in log
 
 
 def test_playitagainsam():

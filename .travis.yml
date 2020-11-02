@@ -27,4 +27,4 @@ script:
   - tox
 after_success:
   - codecov
-  - flake8 changelogs/
+  - flake8
