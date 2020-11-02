@@ -25,8 +25,14 @@ test_requirements = [
     'betamax-serializers'
 ]
 
+dev_requirements = test_requirements + [
+    'flake8',
+    'tox',
+]
+
 extras_requirements = {
     'test': test_requirements,
+    'dev': dev_requirements,
 }
 
 setup(
