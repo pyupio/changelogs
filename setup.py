@@ -25,13 +25,17 @@ test_requirements = [
     'betamax-serializers'
 ]
 
+extras_requirements = {
+    'test': test_requirements,
+}
+
 setup(
     name='changelogs',
-    version='0.14.0',
+    version='0.15.0-dev',
     description="A changelog finder and parser.",
     long_description=readme + '\n\n' + history,
-    author="Jannis Gebauer",
-    author_email='jay@pyup.io',
+    author="pyup.io",
+    author_email='support@pyup.io',
     url='https://github.com/pyupio/changelogs',
     packages=[
         'changelogs',
@@ -53,14 +57,12 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    extras_require=extras_requirements,
 )
