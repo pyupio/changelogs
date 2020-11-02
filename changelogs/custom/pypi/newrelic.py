@@ -1,6 +1,7 @@
 from lxml import etree
 import sys
 
+
 def get_urls(releases, **kwargs):
     urls = set()
     for release in releases:
@@ -38,4 +39,3 @@ def get_head(line, releases, **kwargs):
         if "# {}".format(release.replace(".", "")) == line:
             return release
     return False
-

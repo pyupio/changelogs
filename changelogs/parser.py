@@ -23,6 +23,16 @@ def parse(name, content, releases, get_head_fn):
     changelog = {}
     releases = frozenset(releases)
     head = False
+
+    # We will try using this regular expression to save # anchor parts for URLs
+    # so they don't get removed along when we remove # characters from every
+    # line we are reading here.
+    #
+    # The idea is to preserve the proper URLs while respecting # removal from
+    # other content like GitHub issues numbers.
+    #
+    url_regex = re.compile(r"(https?://[^#]+)#")
+
     for line in content.splitlines():
         new_head = get_head_fn(name=name, line=line, releases=releases)
         if new_head:
@@ -32,7 +42,14 @@ def parse(name, content, releases, get_head_fn):
         if not head:
             continue
         line = line.replace("@", "")
+
+        # We want to remove # characters as they can lead to unwanted links to
+        # stuff like GitHub issues or PRs. We save URL anchors relying on same
+        # anchor character to avoid breaking them.
+        line = url_regex.sub(r"\1::HASHTAG::", line)
         line = line.replace("#", "")
+        line = line.replace("::HASHTAG::", "#")
+
         changelog[head] += line + "\n"
     return changelog
 
@@ -53,7 +70,7 @@ def get_head(name, line, releases):
     for char in INVALID_LINE_START:
         # markdown uses ** for bold text, we also want to make sure to not exclude lines
         # that contain a release
-        if line.startswith(char) and not line.startswith("**") and not "release" in line.lower():
+        if line.startswith(char) and not line.startswith("**") and "release" not in line.lower():
             return False
     # if this line ends with a "." this isn't a valid head, return early.
     for char in INVALID_LINE_ENDS:
@@ -89,8 +106,8 @@ def get_head(name, line, releases):
     # head the only thing left should be the version and possibly some datestamp. We are going
     # to count the length and assume a length of 8 for the version part, 8 for the datestamp and
     # 2 as a safety. Leaving us with a max line length of 18
-    #if len(uncluttered) > 40:
-    #    return False
+    # if len(uncluttered) > 40:
+    #     return False
 
     # split the line in parts and sort these parts by "." count in reversed order. This turns a
     # line like "12 12 2016 v2.0.3 into ['v2.0.3', "12", "12", "2016"]
@@ -118,7 +135,7 @@ def get_head(name, line, releases):
         try:
             Version(part)
             return part
-        except InvalidVersion as e:
+        except InvalidVersion:
             pass
     return False
 
@@ -135,7 +152,8 @@ def parse_commit_log(name, content, releases, get_head_fn):
     log = ""
     raw_log = ""
     for path, _ in content:
-        log += "\n".join(changelog(repository=GitRepos(path), tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
+        log += "\n".join(changelog(repository=GitRepos(path),
+                                   tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
         raw_log += "\n" + subprocess.check_output(
             ["git", "-C", path, "--no-pager", "log", "--decorate"]).decode("utf-8")
         shutil.rmtree(path)
