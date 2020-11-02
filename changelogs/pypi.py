@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def get_metadata(session, name):
     """
     Gets meta data from pypi for the given package.

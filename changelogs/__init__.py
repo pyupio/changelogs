@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
 import re
-from requests import Session
-from .changelogs import get, get_commit_log
+from .changelogs import get, get_commit_log  # noqa: F401
 
 """
 if os.environ.get("DEBUG", "") in ("TRUE", "True", "true"):
@@ -13,9 +11,9 @@ else:
     DEBUG = False
 """
 
-__author__ = """Jannis Gebauer"""
-__email__ = 'jay@pyup.io'
-__version__ = '0.14.0'
+__author__ = """pyup.io"""
+__email__ = 'support@pyup.io'
+__version__ = '0.15.0-dev'
 
 
 url_re = re.compile(r"(https?://[^\s<>\"'\x7f-\xff]+)", re.IGNORECASE)

@@ -54,7 +54,7 @@ def get_head(name, line, releases):
     for char in INVALID_LINE_START:
         # markdown uses ** for bold text, we also want to make sure to not exclude lines
         # that contain a release
-        if line.startswith(char) and not line.startswith("**") and not "release" in line.lower():
+        if line.startswith(char) and not line.startswith("**") and "release" not in line.lower():
             return False
     # if this line ends with a "." this isn't a valid head, return early.
     for char in INVALID_LINE_ENDS:
@@ -90,8 +90,8 @@ def get_head(name, line, releases):
     # head the only thing left should be the version and possibly some datestamp. We are going
     # to count the length and assume a length of 8 for the version part, 8 for the datestamp and
     # 2 as a safety. Leaving us with a max line length of 18
-    #if len(uncluttered) > 40:
-    #    return False
+    # if len(uncluttered) > 40:
+    #     return False
 
     # split the line in parts and sort these parts by "." count in reversed order. This turns a
     # line like "12 12 2016 v2.0.3 into ['v2.0.3', "12", "12", "2016"]
@@ -119,7 +119,7 @@ def get_head(name, line, releases):
         try:
             Version(part)
             return part
-        except InvalidVersion as e:
+        except InvalidVersion:
             pass
     return False
 
@@ -136,7 +136,8 @@ def parse_commit_log(name, content, releases, get_head_fn):
     log = ""
     raw_log = ""
     for path, _ in content:
-        log += "\n".join(changelog(repository=GitRepos(path), tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
+        log += "\n".join(changelog(repository=GitRepos(path),
+                                   tag_filter_regexp=r"v?\d+\.\d+(\.\d+)?"))
         raw_log += "\n" + subprocess.check_output(
             ["git", "-C", path, "--no-pager", "log", "--decorate"]).decode("utf-8")
         shutil.rmtree(path)

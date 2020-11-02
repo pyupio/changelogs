@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
-import pytest
+import pytest  # noqa: F401
 
-from changelogs import get_commit_log
+from changelogs import get_commit_log  # noqa: F401
 
 # Todo: find a way to make this test run on travis
 """

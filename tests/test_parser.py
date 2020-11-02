@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import pytest
 from changelogs.parser import get_head
 from changelogs.parser import parse
 from changelogs.parser import get_head
