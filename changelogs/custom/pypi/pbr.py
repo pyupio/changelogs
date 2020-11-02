@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from lxml import etree
 
+
 def get_urls(releases, **kwargs):
     return {
         'https://docs.openstack.org/developer/pbr/history.html'
@@ -22,4 +23,3 @@ def get_content(session, urls):
                 except IndexError:
                     pass
     return log
-

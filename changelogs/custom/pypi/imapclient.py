@@ -10,5 +10,6 @@ def get_head(name, line, releases):
 
     return line.strip().rsplit(None, 1)[1]
 
+
 def get_urls(releases, **kwargs):
     return {URL}, set()
