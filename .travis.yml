@@ -22,7 +22,9 @@ python:
 install:
   - pip install tox-travis
   - pip install codecov
+  - pip install flake8
 script:
   - tox
 after_success:
   - codecov
+  - flake8

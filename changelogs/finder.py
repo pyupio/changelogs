@@ -74,7 +74,7 @@ def find_repo_urls(session, name, candidates):
                 if resp.status_code == 200:
                     tree = etree.HTML(resp.content)
                     if tree:
-                        for link in frozenset([str(l) for l in tree.xpath("//a/@href")]):
+                        for link in frozenset([str(href) for href in tree.xpath("//a/@href")]):
                             # check if the link 1) is to github.com / bitbucket.org AND 2) somewhat
                             # contains the project name
                             if ("github.com" in link or "bitbucket.org" in link or
@@ -85,14 +85,15 @@ def find_repo_urls(session, name, candidates):
                                     logger.debug("Found repo URL {}".format(link))
                                     yield link
             except ConnectionError:
-                # we really don't care about connection errors here. a lot of project pages are simply
-                # down because the project is no longer maintained
+                # we really don't care about connection errors here.
+                # A lot of project pages are simply down because the project is no longer maintained
                 pass
             except etree.XMLSyntaxError:
                 # unable to parse HTML
                 pass
             except UnicodeEncodeError:
                 pass
+
 
 # changelogs come in all forms and colors. This set contains most of them, e.g. (HISTORY, history,
 # History.md, HISTORY.rst ... etc.)
@@ -128,7 +129,7 @@ def find_changelog(session, repo_url, deep=True):
         # convert them first. We also need to strip out all GET parameters if any.
         tree = etree.HTML(resp.content)
         try:
-            links = frozenset([str(l).split("?")[0] for l in tree.xpath("//a/@href")])
+            links = frozenset([str(href).split("?")[0] for href in tree.xpath("//a/@href")])
         except UnicodeEncodeError:
             links = []
         match, found = False, False
@@ -139,9 +140,11 @@ def find_changelog(session, repo_url, deep=True):
                 if link.endswith(candidate):
                     if "github.com" in repo_url and "blob" in link:
                         link = link.replace(repo_url, "")
-                        match = validate_url("https://raw.githubusercontent.com" + link.replace("/blob/", "/"))
+                        match = validate_url("https://raw.githubusercontent.com" +
+                                             link.replace("/blob/", "/"))
                     elif "bitbucket.org" in repo_url and "src" in link:
-                        match = validate_url("https://bitbucket.org" + link.replace("/src/", "/raw/"))
+                        match = validate_url("https://bitbucket.org" +
+                                             link.replace("/src/", "/raw/"))
                     elif "sourceforge.net" in repo_url:
                         match = validate_url(repo_url + link + "?format=raw")
                     if match:
