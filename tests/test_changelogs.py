@@ -119,13 +119,14 @@ def test_django_coverage_plugin():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_cffi():
     log = changelogs.get("cffi")
     assert 'PyObject_Malloc()+memset()' in log['1.10']
     assert 'Fix 1.5.1 for Python 2.6.' in log['1.5.2']
     assert 'Nothing changed from v1.2.0.' in log['1.2.1']
 """
+
 
 def test_alabaster():
     log = changelogs.get("alabaster")
@@ -334,7 +335,7 @@ def test_graphql():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_brotli():
     # test without token
     with patch('changelogs.changelogs.GITHUB_API_TOKEN', False):
@@ -386,6 +387,7 @@ def test_graphene():
     with patch('changelogs.changelogs.GITHUB_API_TOKEN', 'foo'):
         log = changelogs.get("graphene")
         assert len(log) == 29
+
 
 def test_pyaudio():
     log = changelogs.get("pyaudio")
@@ -464,7 +466,7 @@ def test_launchpad_authres():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_launchpad_not_existent():
     log = changelogs.get("bogus-PHxbQwWhtcutuGiqmbSozjzAsCFENVklSsxlsUXY",
                          vendor="launchpad")
@@ -510,7 +512,7 @@ def test_pyparsing():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_gunicorn():
     log = changelogs.get('gunicorn')
     assert 'Add support for logging configuration using a ini file' in log['0.12.0']
@@ -564,7 +566,7 @@ def test_mako():
     assert 'Python 2.3 support is dropped' in log['0.3.0']
     assert 'Added special compatibility for the 0.5.0' in log['0.6.1']
     assert 'The default test runner is now py.test' in log['1.0.4']
-1
+
 
 def test_django_statici18n():
     log = changelogs.get("django-statici18n")
@@ -1354,7 +1356,7 @@ def test_altered_states():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_altgraph():
     log = changelogs.get("altgraph")
     assert log == {}
@@ -2029,7 +2031,6 @@ def test_django_support_tickets():
     assert "* First release on P" in log["0.1.0"]
 
 
-
 def test_gwrappy():
     log = changelogs.get("gwrappy")
     assert "* New and improved v" in log["0.1.0"]
@@ -2290,7 +2291,7 @@ def test_mschematool():
     assert "Initial release with" in log["0.5"]
     assert "* Apache Cassandra 2" in log["0.6"]
     assert "* Fixed ordering mig" in log["0.6.1"]
-    assert "* init\_db command i" in log["0.6.2"]
+    assert "* init\\_db command " in log["0.6.2"]
     assert "* Fixed setup.py scr" in log["0.6.3"]
     assert "* setup.py from 0.6." in log["0.6.4"]
     assert "* Removed Python 3.4" in log["0.6.5"]
@@ -2519,8 +2520,10 @@ def test_playerdo():
     assert "* Fixed incorrect us" in log["0.5.2"]
 
 
+# TODO: https://github.com/pyupio/changelogs/issues/228
 def test_playerpiano():
     log = changelogs.get("playerpiano")
+    assert "0.2" in log
 
 
 def test_playitagainsam():
@@ -2562,6 +2565,7 @@ def test_pylama():
     assert "2013-05-29  horneds" in log["1.0.0"]
 """
 
+
 def test_pylangacq():
     log = changelogs.get("pylangacq")
     assert "* first commit; set " in log["0.1"]
@@ -2575,6 +2579,7 @@ def test_pylangacq():
 
 def test_pylapjv():
     log = changelogs.get("pylapjv")
+    assert "added exceptions, cleaned things up" in log["0.2.1"]
 
 
 def test_pylastfm():
@@ -2718,7 +2723,7 @@ def test_qiniu_cli():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_qipipe():
     log = changelogs.get("qipipe")
     assert "* Initial release fo" in log["1.1.1"]
@@ -2731,7 +2736,7 @@ def test_qipipe():
 """
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_qiutil():
     log = changelogs.get("qiutil")
     assert "* Split out from qip" in log["1.1.1"]
@@ -2744,7 +2749,7 @@ def test_qiutil():
 """
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_qixnat():
     log = changelogs.get("qixnat")
     assert "* Split out from qiu" in log["2.1.1"]
@@ -2845,6 +2850,14 @@ def test_qt_binder():
     assert "Features" in log["0.2"]
 
 
+def test_sentry_sdk():
+    log = changelogs.get("sentry-sdk")
+    assert "Fix `UnboundLocalErr" in log["0.7.1"]
+    assert "Fix `celery.exceptio" in log["0.7.2"]
+    assert "Fix crash in AIOHTTP" in log["0.7.3"]
+    assert "Flask integration no" in log["0.7.3"]
+
+
 def test_sijax():
     log = changelogs.get("sijax")
     assert "Huge reorganization " in log["0.2.0"]
@@ -2858,6 +2871,7 @@ def test_sijax():
 
 def test_silentdune_client():
     log = changelogs.get("silentdune_client")
+    assert "* Updated copyright message" in log["0.5.15"]
 
 
 def test_silex():
@@ -3024,6 +3038,7 @@ def test_synapse():
     if txt:
         assert "prelimiary support for openMP in compute_asm atoms" not in txt
 
+
 def test_ticketus():
     log = changelogs.get("ticketus")
     assert "* Import scripts for" in log["0.5beta"]
@@ -3164,6 +3179,12 @@ def test_timecodes():
     assert "- Initial release." in log["0.0.1"]
 
 
+def test_tox():
+    log = changelogs.get("tox")
+    assert "- Fix bug with incorrectly defactorized dependencies" in log["3.5.3"]
+    assert "- level three verbosity (``-vvv``) show the packaging output" in log["3.5.2"]
+
+
 def test_xlsx_streaming():
     log = changelogs.get("xlsx_streaming")
     assert "* First public versi" in log["0.1.0"]
@@ -3194,7 +3215,7 @@ def test_xlsxwriter():
 
 
 """
-# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok 
+# todo: re-enable this test, find a way to tell betamax that unrecorded requests are ok
 def test_xlutils():
     log = changelogs.get("xlutils")
     assert "- initial public rel" in log["1.0.0"]
@@ -3205,6 +3226,7 @@ def test_xlutils():
     assert "- fix bug that cause" in log["1.3.0"]
     assert "- In xlutils.styles," in log["1.3.1"]
 """
+
 
 def test_xm_charting():
     log = changelogs.get("xm_charting")
@@ -3296,7 +3318,3 @@ def test_xmltodict():
     assert "* implemented postpr" in log["0.3"]
     assert "* 8 preprocessing ca" in log["0.4"]
     assert "* take all character" in log["0.4.1"]
-
-
-
-
