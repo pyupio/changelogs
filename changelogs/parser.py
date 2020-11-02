@@ -23,7 +23,16 @@ def parse(name, content, releases, get_head_fn):
     changelog = {}
     releases = frozenset(releases)
     head = False
-    regex = re.compile(r"\n\s?(#+)|^\s?(#+)") # Remove all header syntax # characters from .md and .rst formats for readability
+
+    # We will try using this regular expression to save # anchor parts for URLs
+    # so they don't get removed along when we remove # characters from every
+    # line we are reading here.
+    #
+    # The idea is to preserve the proper URLs while respecting # removal from
+    # other content like GitHub issues numbers.
+    #
+    url_regex = re.compile(r"(https?://[^#]+)#")
+
     for line in content.splitlines():
         new_head = get_head_fn(name=name, line=line, releases=releases)
         if new_head:
@@ -33,7 +42,14 @@ def parse(name, content, releases, get_head_fn):
         if not head:
             continue
         line = line.replace("@", "")
-        line = regex.sub("", line)
+
+        # We want to remove # characters as they can lead to unwanted links to
+        # stuff like GitHub issues or PRs. We save URL anchors relying on same
+        # anchor character to avoid breaking them.
+        line = url_regex.sub(r"\1::HASHTAG::", line)
+        line = line.replace("#", "")
+        line = line.replace("::HASHTAG::", "#")
+
         changelog[head] += line + "\n"
     return changelog
 
