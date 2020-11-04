@@ -1,4 +1,6 @@
-from changelogs.finder import contains_project_name
+from unittest.mock import Mock
+
+from changelogs.finder import contains_project_name, find_repo_urls
 
 
 def test_contains_project_name():
@@ -19,5 +21,19 @@ def test_not_contains_project_name():
     assert not call('dj-dashboard', 'https://github.com/pydanny/cookiecutter-djangopackage')
 
 
-def test_find_repo_urls():
-    pass
+def test_find_repo_urls_invalid_candidate():
+    session = Mock()
+    list(find_repo_urls(session, 'foobar', ['invalid-link']))
+    assert not session.get.called
+
+
+def test_find_repo_urls_valid_candidate():
+    session = Mock()
+    list(find_repo_urls(session, 'foobar', ['http://example.com/link']))
+    session.get.assert_called_with('http://example.com/link')
+
+
+def test_find_repo_urls_domain_candidate():
+    session = Mock()
+    list(find_repo_urls(session, 'foobar', ['example.com']))
+    session.get.assert_called_with('http://example.com')

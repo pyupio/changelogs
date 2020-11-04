@@ -68,7 +68,8 @@ def find_repo_urls(session, name, candidates):
     :return: str, URL to a repo
     """
     for _url in candidates:
-        if validate_url(_url):
+        _url = validate_url(_url)
+        if _url:
             try:
                 resp = session.get(_url)
                 if resp.status_code == 200:
