@@ -2,9 +2,10 @@
 History
 =======
 
-0.15.0-dev (UNRELEASED)
------------------------
+0.15.0 (2020-12-27)
+-------------------
 * Removed support for Python 2.7, 3.4 and 3.5
+* Added support for Python 3.9
 * Getting proper changelogs for beautifulsoup4 PyPi package again
 * Getting proper changelogs for synapse PyPi package again
 * Stopped using bumpversion

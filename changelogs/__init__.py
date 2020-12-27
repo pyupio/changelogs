@@ -13,7 +13,7 @@ else:
 
 __author__ = """pyup.io"""
 __email__ = 'support@pyup.io'
-__version__ = '0.15.0-dev'
+__version__ = '0.15.0'
 
 
 url_re = re.compile(r"(https?://[^\s<>\"'\x7f-\xff]+)", re.IGNORECASE)
