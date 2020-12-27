@@ -1,29 +1,27 @@
 branches:
   only:
-    - master
-    - "/^\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
-
+  - master
+  - "/^\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 deploy:
   user: rafaelpivato
   provider: pypi
   password:
-    secure: VC5ADulLBrSYqvgY8fy7d28j0VbX6goSJpHdHg3MJH1jTo4K1KEIHe79lrY34RbWt9meNw1KVi4q32tf4B85nb/P6/5qcJVIQGI4O3JBAG2fg61jclgAeQKESg4Klbx8nb538JAUiR8YibsqJ634IUyxmtJDRhLeHmhPAyU+nax0mPS1Gtat9y1RIGVG6lwMKQrhe5WGVAbxnITJAYPWMatZEbsRrQIOyfi7oNxrSdN3VMU3ISjHGvoHlSD96IM+OI5bHds+bdg7wyjKg+CN4hPezp4+EitgGm8ubJ6qdRS7+Dc171bhGfwZMBRJPCqLtnRin9lwIDOS9eoONiNoZLghTx0KqMcrgSPT1mRVHrH+neEmFUjVuzHzrWz5/A9IU6iQj+7QKhJuQsKLAD79PNfFNmkqysLolOk6kNSGmaCQ9B4U8aZDUcxrAxg0iaZ3s/vAmUNoxvEnKO0pE9oLnoZHvtp2rtjIBINai7pITuPjcjgUmmICMFgawUNDBLefJmkBhPe4w66CXUnnzjIcdvMahvKK+5/bzNjOvB+FdulSmgS+wDds0rMb19mZvo7/WstEVlmxQ3AGeXT/jYMVPTA4dC1w9Ps8ZojT+RXgQ7/+wkVaRl8+pVVvxadF5B46LTghqI1WiQAJNszkf5VPSyCXcaSTCaBj03xlTuIBzIc=
+    secure: D7gJpjQMx0KEYZCdlmLzjLGy4fB67xZ7Vd74AdePQua9qmzsMLxLl6O8iF11dm5/9oTS3vuUtxAetV/MUK1msEO2mvnJddujMJ9VpeFwkv99i9Ua1PEBAlW732CyWa7zDWjd4P+/MU/Gm5rQPYLbwaYpy7UAXzFpCeRtjafPxY6/dlmSEttVImOuVRIOswgww+Q08dlEnim0SY6TH4OsWf7eEuFVOYW1G+iLl8mg6yt/YaSbyl9lWt8h0B3twJ8v86vSzxVSUC07d8Rd0WO+jYC00qX6xx0tZK+sCvVgid4UW/G8r6dYzLbaOdPQTUvbj+n7TvXuMZpBESrJj8d/pfd6W1QbfylfOF3as/0u2JYTtfbwYNqBTIWOMHnenpl/6kb+dC5zynpnrViIgS4PincaLgPjBqHveBXdOPU2WqhjAj6Aj2swB+XtopiYopD3Wpl7foFhF67C1pFHk3lZMO7c2y8RBT+RgcNoUJp23qONDCalR4dJDwTThfs44EDuji1kbEmwnzMcpvQj/NJgaiDfSnvq06pUUCEdkm1KF31NAegGHaxW44UvRZu8y6npozD15QqPd44wUez1Vm8aO+lb/VXGIbB7zI8eEvv40YvRkkfozgjVa9aU7VYDAO4lOwpDYAA8CF1BMrSHrlA5PMxNUyBaoBeH7Q+6izr1Pmg=
   distributions: sdist bdist_wheel
   on:
     repo: pyupio/changelogs
     tags: true
-    python: "3.6"
-
+    python: '3.7'
 language: python
 python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
-  - "3.9"
+- '3.6'
+- '3.7'
+- '3.8'
+- '3.9'
 install:
-  - pip install codecov flake8 tox-travis
+- pip install codecov flake8 tox-travis
 script:
-  - tox
+- tox
 after_success:
-  - codecov
-  - flake8
+- codecov
+- flake8
