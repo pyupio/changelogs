@@ -37,7 +37,7 @@ extras_requirements = {
 
 setup(
     name='changelogs',
-    version='0.15.0',
+    version='0.15.1-dev',
     description="A changelog finder and parser.",
     long_description_content_type='text/x-rst',
     long_description=readme + '\n\n' + history,

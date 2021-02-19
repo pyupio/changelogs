@@ -2,6 +2,10 @@
 History
 =======
 
+0.15.1-dev (master)
+-------------------
+* Current unstable version
+
 0.15.0 (2020-12-27)
 -------------------
 * Removed support for Python 2.7, 3.4 and 3.5
