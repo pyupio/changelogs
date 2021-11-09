@@ -23,6 +23,7 @@ monero: https://monero-python.readthedocs.io/en/latest/_sources/release_notes.rs
 more-itertools: https://raw.githubusercontent.com/more-itertools/more-itertools/master/docs/versions.rst
 msgpack: https://raw.githubusercontent.com/msgpack/msgpack-python/master/ChangeLog.rst
 nbdime: https://raw.githubusercontent.com/jupyter/nbdime/master/docs/source/changelog.md
+numpy: https://api.github.com/repos/numpy/numpy/releases
 openpyxl: https://openpyxl.readthedocs.io/en/stable/_sources/changes.rst.txt
 osc: https://raw.githubusercontent.com/openSUSE/osc/master/NEWS
 pdfminer.six: https://raw.githubusercontent.com/pdfminer/pdfminer.six/master/CHANGELOG.md
