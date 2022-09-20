@@ -35,6 +35,7 @@ pytz: https://raw.githubusercontent.com/stub42/pytz/master/tz/NEWS
 pyyaml: https://raw.githubusercontent.com/yaml/pyyaml/master/CHANGES
 pyzmq: https://raw.githubusercontent.com/zeromq/pyzmq/master/docs/source/changelog.rst
 raiden: https://raw.githubusercontent.com/raiden-network/raiden/develop/docs/changelog.rst
+safety: https://raw.githubusercontent.com/pyupio/safety/master/CHANGELOG.md
 scalelite: https://api.github.com/repos/alexsanderp/scalelite-python-wrapper/releases
 sentry-sdk: https://raw.githubusercontent.com/getsentry/sentry-python/master/CHANGES.md
 sphinx-rtd-theme: https://raw.githubusercontent.com/rtfd/sphinx_rtd_theme/master/docs/changelog.rst
