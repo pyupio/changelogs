@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from lxml import etree
+from changelogs.changelogs import get_limited_content_entry
 
 
 def get_urls(releases, **kwargs):
@@ -8,18 +9,20 @@ def get_urls(releases, **kwargs):
     }, set()
 
 
-def get_content(session, urls):
+def get_content(session, urls, chars_limit):
     log = ""
     for url in urls:
-        r = session.get(url)
-        if r.status_code == 200:
-            root = etree.HTML(r.content)
-            for item in root.xpath("//div[@class='section']"):
-                try:
-                    log += "{version}\n{content}\n\n".format(
-                        version=item.xpath("h3/text()")[0],
-                        content="\n".join(["- {}".format(li) for li in item.xpath("ul/li/text()")])
+        limited_content_entry = get_limited_content_entry(session, url, chars_limit)
+        if limited_content_entry:
+            root = etree.HTML(limited_content_entry)
+        else:
+            continue
+        for item in root.xpath("//div[@class='section']"):
+            try:
+                log += "{version}\n{content}\n\n".format(
+                    version=item.xpath("h3/text()")[0],
+                    content="\n".join(["- {}".format(li) for li in item.xpath("ul/li/text()")])
                     )
-                except IndexError:
-                    pass
+            except IndexError:
+                pass
     return log
