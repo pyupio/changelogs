@@ -15,6 +15,8 @@ ALLOWED_CUSTOM_FUNCTIONS = ("parse", "get_head", "get_urls",
 
 GITHUB_API_TOKEN = os.environ.get("CHANGELOGS_GITHUB_API_TOKEN", False)
 
+CHARS_LIMIT = os.environ.get("CHARS_LIMIT", 2000000)  # default is 2 MB of 1 byte/char
+
 
 def _load_custom_functions(vendor, name):
     """
@@ -146,12 +148,13 @@ def check_switch_vendor(old_vendor, name, urls, _depth=0):
     return "", ""
 
 
-def get(name, vendor="pypi", functions={}, _depth=0):
+def get(name, vendor="pypi", functions={}, chars_limit=CHARS_LIMIT, _depth=0):
     """
     Tries to find a changelog for the given package.
     :param name: str, package name
     :param vendor: str, vendor
     :param functions: dict, custom functions
+    :param chars_limit: int, changelog content entry chars limit
     :return: dict, changelog
     """
     fns = _bootstrap_functions(name=name, vendor=vendor, functions=functions)
@@ -169,7 +172,7 @@ def get(name, vendor="pypi", functions={}, _depth=0):
     )
 
     # load the content from the given urls and parse the changelog
-    content = fns["get_content"](session=session, urls=urls)
+    content = fns["get_content"](session=session, urls=urls, chars_limit=chars_limit)
     changelog = fns["parse"](
         name=name,
         content=content,
@@ -213,14 +216,36 @@ def get_commit_log(name, vendor='pypi', functions={}, _depth=0):
     )
 
 
-def get_content(session, urls):
+def get_limited_content_entry(session, url, chars_limit):
+    """
+    Loads the content for an URL entry till chars_limit.
+    :param session: requests Session instance
+    :param url: str URL
+    :param chars_limit: int, changelog content entry chars limit
+    :return: str, limited content
+    """
+    limited_content = ""
+    with session.get(url, stream=True) as resp:
+        if resp.status_code == 200:
+            try:
+                # Avoid https://github.com/psf/requests/issues/3359
+                if not resp.encoding:
+                    resp.encoding = 'utf-8'
+                limited_content = resp.iter_content(chunk_size=chars_limit, 
+                                                    decode_unicode=True).__next__()
+            except StopIteration:
+                pass
+    return limited_content
+
+
+def get_content(session, urls, chars_limit):
     """
     Loads the content from URLs, ignoring connection errors.
     :param session: requests Session instance
     :param urls: list, str URLs
+    :param chars_limit: int, changelog content entry chars limit
     :return: str, content
     """
-
     content = ""
     for url in urls:
         try:
@@ -235,12 +260,14 @@ def get_content(session, urls):
                     "Authorization": "token {}".format(GITHUB_API_TOKEN)
                 })
                 if resp.status_code == 200:
+                    # These entries are limited by GH to max 125 kB
                     for item in resp.json():
                         content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
             else:
-                resp = session.get(url)
-                if resp.status_code == 200:
-                    content += "\n\n" + resp.text
+                content += "\n\n" + get_limited_content_entry(session, url, chars_limit)
+            # To avoid exceeding the content limit by accumulation
+            if len(content) > chars_limit:
+                break   
         except requests.ConnectionError:
             pass
     return content
