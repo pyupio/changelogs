@@ -21,6 +21,11 @@ def record(monkeypatch, betamax_session):
         return betamax_session
     monkeypatch.setattr("changelogs.changelogs.Session", session)
 
+   
+def test_get_max_chars(): 
+    log = changelogs.get("requests", chars_limit=200)
+    assert len(str(log)) < 200*4  # Streamed chars after enconding may be as big as 4 bytes   
+
 
 def test_django_registration_redux():
     log = changelogs.get("django-registration-redux")
