@@ -1,6 +1,6 @@
 import validators
 from lxml import etree
-from requests import ConnectionError
+from requests import ConnectionError, RequestException
 import re
 import logging
 
@@ -85,7 +85,7 @@ def find_repo_urls(session, name, candidates):
                                 if link:
                                     logger.debug("Found repo URL {}".format(link))
                                     yield link
-            except ConnectionError:
+            except (ConnectionError, RequestException):
                 # we really don't care about connection errors here.
                 # A lot of project pages are simply down because the project is no longer maintained
                 pass
