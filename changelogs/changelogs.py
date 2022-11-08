@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import functools
 import subprocess
 from tempfile import mkdtemp
 import imp
@@ -156,6 +157,9 @@ def get(name, vendor="pypi", functions={}, _depth=0):
     """
     fns = _bootstrap_functions(name=name, vendor=vendor, functions=functions)
     session = Session()
+    session.request = functools.partial(session.request, timeout=10)
+    session.max_redirects = 3
+
     # get meta data for the given package and use this metadata to
     # find urls pointing to a possible changelog
     data = fns["get_metadata"](session=session, name=name)
