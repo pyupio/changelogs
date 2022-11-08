@@ -235,12 +235,23 @@ def get_content(session, urls):
                     logger.warning("Fetching release pages requires CHANGELOGS_GITHUB_API_TOKEN "
                                    "to be set")
                     continue
-                resp = session.get(url, headers={
-                    "Authorization": "token {}".format(GITHUB_API_TOKEN)
-                })
-                if resp.status_code == 200:
-                    for item in resp.json():
-                        content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+
+                page = 0
+                exist_pages = True
+                headers = {
+                        "Authorization": "token {}".format(GITHUB_API_TOKEN)
+                    }
+
+                while exist_pages:
+                    resp = session.get(url, headers=headers, params={'page': page})
+                    if resp.status_code == 200 and len(resp.json()) > 0:
+                        for item in resp.json():
+                            if 'tag_name' in item and 'body' in item:
+                                content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+                    else:
+                        exist_pages = False
+
+                    page += 1
             else:
                 resp = session.get(url)
                 if resp.status_code == 200:
