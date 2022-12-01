@@ -151,10 +151,8 @@ def test_mccabe():
 
 def test_numpy():
     log = changelogs.get("numpy")
-    assert 'numpy.distutils now supports parallel compilation' in log['1.10.0']
-    assert 'Each generalized ufunc has information associated with it' in log['1.3.0']
-    assert 'is printed during numpy.test()' in log['1.7.1']
-    assert 'ssue with fromarrays not using correct format for unicode arrays' in log['1.9.1']
+    assert 'The NumPy 1.21.4 is a maintenance release that fixes a few bugs' in log['1.21.4']
+    assert 'This release contains various bug/regression fixes.' in log['1.18.3']
 
 
 def test_whitenoise():

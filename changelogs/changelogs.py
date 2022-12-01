@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import functools
 import subprocess
 from tempfile import mkdtemp
 import imp
@@ -159,6 +160,9 @@ def get(name, vendor="pypi", functions={}, chars_limit=CHARS_LIMIT, _depth=0):
     """
     fns = _bootstrap_functions(name=name, vendor=vendor, functions=functions)
     session = Session()
+    session.request = functools.partial(session.request, timeout=10)
+    session.max_redirects = 3
+
     # get meta data for the given package and use this metadata to
     # find urls pointing to a possible changelog
     data = fns["get_metadata"](session=session, name=name)
@@ -256,18 +260,31 @@ def get_content(session, urls, chars_limit):
                     logger.warning("Fetching release pages requires CHANGELOGS_GITHUB_API_TOKEN "
                                    "to be set")
                     continue
-                resp = session.get(url, headers={
-                    "Authorization": "token {}".format(GITHUB_API_TOKEN)
-                })
-                if resp.status_code == 200:
-                    # These entries are limited by GH to max 125 kB
-                    for item in resp.json():
-                        content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+                page = 0
+                exist_pages = True
+                headers = {
+                        "Authorization": "token {}".format(GITHUB_API_TOKEN)
+                    }
+
+                while exist_pages:
+                    resp = session.get(url, headers=headers, params={'page': page})
+                    if resp.status_code == 200 and len(resp.json()) > 0:
+                        # These entries are limited by GH to max 125 kB
+                        for item in resp.json():
+                            if 'tag_name' in item and 'body' in item:
+                                content += "\n\n{}\n{}".format(item['tag_name'], item["body"])
+                    else:
+                        exist_pages = False
+
+                    page += 1
+
             else:
                 content += "\n\n" + get_limited_content_entry(session, url, chars_limit)
+                
             # To avoid exceeding the content limit by accumulation
             if len(content) > chars_limit:
                 break   
+                
         except requests.ConnectionError:
             pass
     return content
