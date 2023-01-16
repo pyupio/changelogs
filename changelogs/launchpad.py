@@ -52,17 +52,19 @@ def get_urls(session, name, data, find_changelogs_fn, **kwargs):
     return {"https://api.launchpad.net/1.0/{}/releases".format(name)}, set()
 
 
-def get_content(session, urls):
+def get_content(session, urls, chars_limit):
     """
     Loads the content from URLs, ignoring connection errors.
     :param session: requests Session instance
     :param urls: list, str URLs
+    :param chars_limit: int, changelog content entry chars limit
     :return: str, content
     """
     for url in urls:
-        resp = session.get(url)
-        if resp.ok:
-            return resp.json()
+        with session.get(url, stream=True) as resp:
+            # Avoid parsing if exceeds the limit as slicing would break the Json
+            if resp.ok and int(resp.headers['content-length']) < chars_limit:
+                return resp.json()
     return {}
 
 
