@@ -45,3 +45,5 @@ sqlalchemy-json: https://raw.githubusercontent.com/edelooff/sqlalchemy-json/mast
 tox: https://raw.githubusercontent.com/tox-dev/tox/master/docs/changelog.rst
 tuf: https://raw.githubusercontent.com/theupdateframework/tuf/develop/docs/CHANGELOG.md
 zulip: https://raw.githubusercontent.com/zulip/python-zulip-api/master/zulip/CHANGELOG.md
+minecraft-launcher-lib: https://codeberg.org/JakobDev/minecraft-launcher-lib/raw/branch/master/doc/changelog.rst
+desktop-entry-lib: https://codeberg.org/JakobDev/desktop-entry-lib/raw/branch/main/docs/changelog.rst
