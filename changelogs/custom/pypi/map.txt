@@ -29,6 +29,7 @@ osc: https://raw.githubusercontent.com/openSUSE/osc/master/NEWS
 pdfminer.six: https://raw.githubusercontent.com/pdfminer/pdfminer.six/master/CHANGELOG.md
 phonenumbers: https://raw.githubusercontent.com/google/libphonenumber/master/release_notes.txt
 pinax-stripe: https://raw.githubusercontent.com/pinax/pinax-stripe/master/docs/about/release-notes.md
+poetry: https://github.com/python-poetry/poetry/blob/main/CHANGELOG.md
 pytest: https://raw.githubusercontent.com/pytest-dev/pytest/master/doc/en/changelog.rst
 python-memcached: https://raw.githubusercontent.com/linsomniac/python-memcached/master/ChangeLog
 python-social-auth: https://raw.githubusercontent.com/python-social-auth/social-core/master/CHANGELOG.md
